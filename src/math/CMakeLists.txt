@@ -63,7 +63,7 @@ add_library(FermiMinuit2::Math ALIAS FermiMinuit2Math)
 target_include_directories(
   FermiMinuit2Math
   PUBLIC
-  $<BUILD_INTERFACE:${Minuit2_SOURCE_DIR}/inc>
+  $<BUILD_INTERFACE:${FermiMinuit2_SOURCE_DIR}/inc>
   $<INSTALL_INTERFACE:include/fermi/Minuit2>
 )
 
@@ -72,7 +72,7 @@ if(minuit2_inroot AND NOT minuit2_standalone)
   target_include_directories(
     FermiMinuit2Math
     PUBLIC
-    $<BUILD_INTERFACE:${Minuit2_SOURCE_DIR}/../mathcore/inc>
+    $<BUILD_INTERFACE:${FermiMinuit2_SOURCE_DIR}/../mathcore/inc>
   )
 endif()
 
