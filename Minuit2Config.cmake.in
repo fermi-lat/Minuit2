@@ -39,12 +39,12 @@ if(minuit2_mpi)
     endif()
 endif()
 
-include("${CMAKE_CURRENT_LIST_DIR}/Minuit2Targets.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/FermiMinuit2Targets.cmake")
 
-add_library(Minuit2::Math IMPORTED INTERFACE)
-set_property(TARGET Minuit2::Math
-             PROPERTY INTERFACE_LINK_LIBRARIES Minuit2::Minuit2Math)
+add_library(FermiMinuit2::Math IMPORTED INTERFACE)
+set_property(TARGET FermiMinuit2::Math
+             PROPERTY INTERFACE_LINK_LIBRARIES FermiMinuit2::Minuit2Math)
 
-add_library(Minuit2::Common IMPORTED INTERFACE)
-set_property(TARGET Minuit2::Common
-             PROPERTY INTERFACE_LINK_LIBRARIES Minuit2::Minuit2Common)
+add_library(FermiMinuit2::Common IMPORTED INTERFACE)
+set_property(TARGET FermiMinuit2::Common
+             PROPERTY INTERFACE_LINK_LIBRARIES FermiMinuit2::Minuit2Common)

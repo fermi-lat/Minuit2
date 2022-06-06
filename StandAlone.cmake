@@ -43,7 +43,7 @@ file(READ ${VERSION_FILE} versionstr)
 string(STRIP ${versionstr} versionstr)
 string(REGEX REPLACE "([0-9]+[.][0-9]+)[/]([0-9]+)" "\\1.\\2" versionstr ${versionstr})
 
-project(Minuit2
+project(FermiMinuit2
     VERSION ${versionstr}
     LANGUAGES CXX)
 
@@ -62,45 +62,45 @@ endif()
 # If using this with add_subdirectory, the Minuit2
 # namespace does not get automatically prepended,
 # so including an alias for that.
-add_library(Minuit2Common INTERFACE)
-add_library(Minuit2::Common ALIAS Minuit2Common)
+add_library(FermiMinuit2Common INTERFACE)
+add_library(FermiMinuit2::Common ALIAS FermiMinuit2Common)
 
 # OpenMP support
 if(minuit2_omp)
     if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
-        message(STATUS "Building Minuit2 with OpenMP support")
+        message(STATUS "Building FermiMinuit2 with OpenMP support")
     endif()
-    target_link_libraries(Minuit2Common INTERFACE OpenMP::OpenMP_CXX)
+    target_link_libraries(FermiMinuit2Common INTERFACE OpenMP::OpenMP_CXX)
 endif()
 
 # MPI support
 # Uses the old CXX bindings (deprecated), probably do not activate
 if(minuit2_mpi)
     if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
-        message(STATUS "Building Minuit2 with MPI support")
+        message(STATUS "Building FermiMinuit2 with MPI support")
         message(STATUS "Run: ${MPIEXEC} ${MPIEXEC_NUMPROC_FLAG} ${MPIEXEC_MAX_NUMPROCS} ${MPIEXEC_PREFLAGS} EXECUTABLE ${MPIEXEC_POSTFLAGS} ARGS")
     endif()
-    target_compile_definitions(Minuit2Common INTERFACE MPIPROC)
-    target_link_libraries(Minuit2Common INTERFACE MPI::MPI_CXX)
+    target_compile_definitions(FermiMinuit2Common INTERFACE MPIPROC)
+    target_link_libraries(FermiMinuit2Common INTERFACE MPI::MPI_CXX)
 endif()
 
 # Add the libraries
 add_subdirectory(src)
 
-# Exporting targets to allow find_package(Minuit2) to work properly
+# Exporting targets to allow find_package(FermiMinuit2) to work properly
 
 # Make a config file to make this usable as a CMake Package
 # Start by adding the version in a CMake understandable way
 include(CMakePackageConfigHelpers)
 write_basic_package_version_file(
-    Minuit2ConfigVersion.cmake
-    VERSION ${Minuit2_VERSION}
+    FermiMinuit2ConfigVersion.cmake
+    VERSION ${FermiMinuit2_VERSION}
     COMPATIBILITY AnyNewerVersion
     )
 
 # Now, install the Interface targets
-install(TARGETS Minuit2Common
-        EXPORT Minuit2Targets
+install(TARGETS FermiMinuit2Common
+    EXPORT FermiMinuit2Targets
         LIBRARY DESTINATION lib
         ARCHIVE DESTINATION lib
         RUNTIME DESTINATION bin
@@ -108,44 +108,22 @@ install(TARGETS Minuit2Common
         )
 
 # Install the export set
-install(EXPORT Minuit2Targets
-        FILE Minuit2Targets.cmake
-        NAMESPACE Minuit2::
-        DESTINATION lib/cmake/Minuit2
+install(EXPORT FermiMinuit2Targets
+    FILE FermiMinuit2Targets.cmake
+    NAMESPACE FermiMinuit2::
+    DESTINATION lib/cmake/FermiMinuit2
         )
 
-# Adding the Minuit2Config file
-configure_file(Minuit2Config.cmake.in Minuit2Config.cmake @ONLY)
-install(FILES "${CMAKE_CURRENT_BINARY_DIR}/Minuit2Config.cmake" "${CMAKE_CURRENT_BINARY_DIR}/Minuit2ConfigVersion.cmake"
-        DESTINATION lib/cmake/Minuit2
+    # Adding the FermiMinuit2Config file
+    configure_file(Minuit2Config.cmake.in FermiMinuit2Config.cmake @ONLY)
+    install(FILES "${CMAKE_CURRENT_BINARY_DIR}/FermiMinuit2Config.cmake" "${CMAKE_CURRENT_BINARY_DIR}/FermiMinuit2ConfigVersion.cmake"
+        DESTINATION lib/cmake/FermiMinuit2
         )
 
 # Allow build directory to work for CMake import
-export(TARGETS Minuit2Common Minuit2Math Minuit2 NAMESPACE Minuit2:: FILE Minuit2Targets.cmake)
-export(PACKAGE Minuit2)
+export(TARGETS FermiMinuit2Common FermiMinuit2Math FermiMinuit2 NAMESPACE FermiMinuit2:: FILE FermiMinuit2Targets.cmake)
+export(PACKAGE FermiMinuit2)
 
-# Only add tests and docs if this is the main project
-if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
-    enable_testing()
-    
-    # Make adding tests cleaner using this macro
-    macro(add_minuit2_test TESTNAME)
-        add_executable(${TESTNAME} ${ARGN})
-        target_include_directories(${TESTNAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}")
-        target_link_libraries(${TESTNAME} PUBLIC Minuit2)
-        if(minuit2_mpi)
-            add_test(NAME ${TESTNAME} COMMAND ${MPIEXEC} ${MPIEXEC_NUMPROC_FLAG} 2 ${MPIEXEC_PREFLAGS} "$<TARGET_FILE:${TESTNAME}>" ${MPIEXEC_POSTFLAGS})
-        else()
-            add_test(NAME ${TESTNAME} COMMAND "$<TARGET_FILE:${TESTNAME}>")
-        endif()
-    endmacro()
-
-    add_subdirectory(test/MnSim)
-    add_subdirectory(test/MnTutorial)
-
-    # Add a build docs target if Doxygen found
-    add_subdirectory(doc)
-endif()
 
 # Add purge target
 if(minuit2_standalone)
