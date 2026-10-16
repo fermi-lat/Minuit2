@@ -21,14 +21,14 @@ namespace ROOT {
 
 
 
-double SqrtLowParameterTransformation::Int2ext(double value, double lower) const {
+auto SqrtLowParameterTransformation::Int2ext(double value, double lower) const -> double {
    /// internal to external transformation
    double val = lower - 1. + sqrt( value*value + 1.);
    return val;
 }
 
 
-double SqrtLowParameterTransformation::Ext2int(double value, double lower, const MnMachinePrecision& ) const {
+auto SqrtLowParameterTransformation::Ext2int(double value, double lower, const MnMachinePrecision& ) const -> double {
    // external to internal transformation
    double yy = value - lower + 1.;
    double yy2 = yy*yy;
@@ -39,7 +39,7 @@ double SqrtLowParameterTransformation::Ext2int(double value, double lower, const
 }
 
 
-double SqrtLowParameterTransformation::DInt2Ext(double value, double) const {
+auto SqrtLowParameterTransformation::DInt2Ext(double value, double) const -> double {
    // derivative of internal to external transofrmation   :  d (Int2Ext) / d Int
    double val = value/( sqrt( value*value + 1.) );
    return val;

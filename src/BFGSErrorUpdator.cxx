@@ -26,9 +26,9 @@ namespace ROOT {
 
 
 
-double inner_product(const LAVector&, const LAVector&);
-double similarity(const LAVector&, const LASymMatrix&);
-double sum_of_elements(const LASymMatrix&);
+auto inner_product(const LAVector&, const LAVector&) -> double;
+auto similarity(const LAVector&, const LASymMatrix&) -> double;
+auto sum_of_elements(const LASymMatrix&) -> double;
 
 // define here a square matrix that it is needed for computingthe BFGS update
 //  define just the class, no need for defining operatipons as dane for the Symmetric matrices
@@ -41,24 +41,24 @@ public:
       fData(std::vector<double> (n*n) )
    {}
 
-   double operator()(unsigned int row, unsigned int col) const {
+   auto operator()(unsigned int row, unsigned int col) const -> double {
       assert(row<fNRow && col < fNRow);
       return fData[col+row*fNRow];
    }
 
-   double& operator()(unsigned int row, unsigned int col) {
+   auto operator()(unsigned int row, unsigned int col) -> double& {
       assert(row<fNRow && col < fNRow);
       return fData[col+row*fNRow];
    }
 
-   unsigned int Nrow() const { return fNRow; }
+   auto Nrow() const -> unsigned int { return fNRow; }
 private:
    unsigned int fNRow;
    std::vector<double> fData;
 };
 
 // compute outer product of two vector of same size to return a square matrix
-LASquareMatrix OuterProduct(const LAVector& v1, const LAVector& v2) {
+auto OuterProduct(const LAVector& v1, const LAVector& v2) -> LASquareMatrix {
    assert(v1.size() == v2.size() );
    LASquareMatrix a(v1.size() );
    for (unsigned int i = 0; i < v1.size() ; ++i) {
@@ -70,7 +70,7 @@ LASquareMatrix OuterProduct(const LAVector& v1, const LAVector& v2) {
 }
 // compute product of symmetric matrix with square matrix 
       
-LASquareMatrix MatrixProduct(const LASymMatrix& m1, const LASquareMatrix& m2) {
+auto MatrixProduct(const LASymMatrix& m1, const LASquareMatrix& m2) -> LASquareMatrix {
    unsigned int n = m1.Nrow();
    assert(n == m2.Nrow() );
    LASquareMatrix a( n );
@@ -87,9 +87,9 @@ LASquareMatrix MatrixProduct(const LASymMatrix& m1, const LASquareMatrix& m2) {
 
 
 
-MinimumError BFGSErrorUpdator::Update(const MinimumState& s0,
+auto BFGSErrorUpdator::Update(const MinimumState& s0,
                                          const MinimumParameters& p1,
-                                         const FunctionGradient& g1) const {
+                                         const FunctionGradient& g1) const -> MinimumError {
 
    // update of the covarianze matrix (BFGS formula, see Tutorial, par. 4.8 pag 26)
    // in case of delgam > gvg (PHI > 1) use rank one formula

@@ -12,14 +12,14 @@
       -lf2c -lm   (in that order)
 */
 
-#include <math.h>
+#include <cmath>
 
 namespace ROOT {
 
    namespace Minuit2 {
 
 
-double mndasum(unsigned int n, const double* dx, int incx) {
+auto mndasum(unsigned int n, const double* dx, int incx) -> double {
    /* System generated locals */
    int i__1, i__2;
    double ret_val, d__1, d__2, d__3, d__4, d__5, d__6;

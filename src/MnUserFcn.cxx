@@ -16,7 +16,7 @@ namespace ROOT {
    namespace Minuit2 {
 
 
-double MnUserFcn::operator()(const MnAlgebraicVector& v) const {
+auto MnUserFcn::operator()(const MnAlgebraicVector& v) const -> double {
    // call Fcn function transforming from a MnAlgebraicVector of internal values to a std::vector of external ones
    fNumCall++;
 

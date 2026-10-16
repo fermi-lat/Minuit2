@@ -17,7 +17,7 @@ namespace ROOT {
    namespace Minuit2 {
 
 
-int Mndscal(unsigned int n, double da, double* dx, int incx) {
+auto Mndscal(unsigned int n, double da, double* dx, int incx) -> int {
    /* System generated locals */
    int i__1, i__2;
 

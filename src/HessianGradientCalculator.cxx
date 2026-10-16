@@ -16,7 +16,7 @@
 #include "Minuit2/FunctionGradient.h"
 #include "Minuit2/MnStrategy.h"
 
-#include <math.h>
+#include <cmath>
 
 //#define DEBUG
 
@@ -31,7 +31,7 @@ namespace ROOT {
    namespace Minuit2 {
 
 
-FunctionGradient HessianGradientCalculator::operator()(const MinimumParameters& par) const {
+auto HessianGradientCalculator::operator()(const MinimumParameters& par) const -> FunctionGradient {
    // use initial gradient as starting point
    InitialGradientCalculator gc(fFcn, fTransformation, fStrategy);
    FunctionGradient gra = gc(par);
@@ -39,34 +39,34 @@ FunctionGradient HessianGradientCalculator::operator()(const MinimumParameters& 
    return (*this)(par, gra);
 }
 
-FunctionGradient HessianGradientCalculator::operator()(const MinimumParameters& par, const FunctionGradient& Gradient) const {
+auto HessianGradientCalculator::operator()(const MinimumParameters& par, const FunctionGradient& Gradient) const -> FunctionGradient {
    // interface of the base class. Use DeltaGradient for op.
    std::pair<FunctionGradient, MnAlgebraicVector> mypair = DeltaGradient(par, Gradient);
 
    return mypair.first;
 }
 
-const MnMachinePrecision& HessianGradientCalculator::Precision() const {
+auto HessianGradientCalculator::Precision() const -> const MnMachinePrecision& {
    // return the precision
    return fTransformation.Precision();
 }
 
-unsigned int HessianGradientCalculator::Ncycle() const {
+auto HessianGradientCalculator::Ncycle() const -> unsigned int {
    // return number of calculation cycles (defined in strategy)
    return Strategy().HessianGradientNCycles();
 }
 
-double HessianGradientCalculator::StepTolerance() const {
+auto HessianGradientCalculator::StepTolerance() const -> double {
    // return tolerance on step size (defined in strategy)
    return Strategy().GradientStepTolerance();
 }
 
-double HessianGradientCalculator::GradTolerance() const {
+auto HessianGradientCalculator::GradTolerance() const -> double {
    // return gradient tolerance (defines in strategy)
    return Strategy().GradientTolerance();
 }
 
-std::pair<FunctionGradient, MnAlgebraicVector> HessianGradientCalculator::DeltaGradient(const MinimumParameters& par, const FunctionGradient& Gradient) const {
+auto HessianGradientCalculator::DeltaGradient(const MinimumParameters& par, const FunctionGradient& Gradient) const -> std::pair<FunctionGradient, MnAlgebraicVector> {
    // calculate gradient for Hessian
    assert(par.IsValid());
 

@@ -20,7 +20,7 @@ namespace ROOT {
 
 //#include <iostream>
 
-std::vector<double> FumiliStandardChi2FCN::Elements(const std::vector<double>& par) const {
+auto FumiliStandardChi2FCN::Elements(const std::vector<double>& par) const -> std::vector<double> {
    // Calculate the f(i) contribution to the Chi2. Chi2 = Sum[f(i)**2]
 
    std::vector<double> result;
@@ -50,14 +50,14 @@ std::vector<double> FumiliStandardChi2FCN::Elements(const std::vector<double>& p
 
 
 
-const std::vector<double> & FumiliStandardChi2FCN::GetMeasurement(int index) const {
+auto FumiliStandardChi2FCN::GetMeasurement(int index) const -> const std::vector<double> & {
    // Return the coordinate (position) values.
    return fPositions[index];
 
 }
 
 
-int FumiliStandardChi2FCN::GetNumberOfMeasurements() const {
+auto FumiliStandardChi2FCN::GetNumberOfMeasurements() const -> int {
    // Return size
    return fPositions.size();
 

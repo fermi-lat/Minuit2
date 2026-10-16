@@ -19,7 +19,7 @@ namespace ROOT {
    namespace Minuit2 {
 
 
-FunctionGradient AnalyticalGradientCalculator::operator()(const MinimumParameters& par) const {
+auto AnalyticalGradientCalculator::operator()(const MinimumParameters& par) const -> FunctionGradient {
    // evaluate analytical gradient. take care of parameter transformations
 
    std::vector<double> grad = fGradCalc.Gradient(fTransformation(par.Vec()));
@@ -45,12 +45,12 @@ FunctionGradient AnalyticalGradientCalculator::operator()(const MinimumParameter
    return FunctionGradient(v);
 }
 
-FunctionGradient AnalyticalGradientCalculator::operator()(const MinimumParameters& par, const FunctionGradient&) const {
+auto AnalyticalGradientCalculator::operator()(const MinimumParameters& par, const FunctionGradient&) const -> FunctionGradient {
    // needed from base class
    return (*this)(par);
 }
 
-bool AnalyticalGradientCalculator::CheckGradient() const {
+auto AnalyticalGradientCalculator::CheckGradient() const -> bool {
    // check to be sure FCN implements analytical gradient
    return fGradCalc.CheckGradient();
 }

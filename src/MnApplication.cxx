@@ -33,7 +33,7 @@ MnApplication::MnApplication(const FCNGradientBase& fcn, const MnUserParameterSt
 {}
 
 
-FunctionMinimum MnApplication::operator()(unsigned int maxfcn, double toler) {
+auto MnApplication::operator()(unsigned int maxfcn, double toler) -> FunctionMinimum {
    // constructor from macfcn calls and tolerance
 
    assert(fState.IsValid());
@@ -89,16 +89,16 @@ FunctionMinimum MnApplication::operator()(unsigned int maxfcn, double toler) {
 // via MnUserParameterState
 
 
-const std::vector<MinuitParameter>& MnApplication::MinuitParameters() const {
+auto MnApplication::MinuitParameters() const -> const std::vector<MinuitParameter>& {
    //access to parameters (row-wise)
    return fState.MinuitParameters();
 }
 //access to parameters and errors in column-wise representation
-std::vector<double> MnApplication::Params() const {return fState.Params();}
-std::vector<double> MnApplication::Errors() const {return fState.Errors();}
+auto MnApplication::Params() const -> std::vector<double> {return fState.Params();}
+auto MnApplication::Errors() const -> std::vector<double> {return fState.Errors();}
 
 
-const MinuitParameter& MnApplication::Parameter(unsigned int i) const {
+auto MnApplication::Parameter(unsigned int i) const -> const MinuitParameter& {
    //access to single Parameter
    return fState.Parameter(i);
 }
@@ -136,8 +136,8 @@ void MnApplication::SetLimits(unsigned int i, double low, double up) {
 }
 void MnApplication::RemoveLimits(unsigned int i) {fState.RemoveLimits(i);}
 
-double MnApplication::Value(unsigned int i) const {return fState.Value(i);}
-double MnApplication::Error(unsigned int i) const {return fState.Error(i);}
+auto MnApplication::Value(unsigned int i) const -> double {return fState.Value(i);}
+auto MnApplication::Error(unsigned int i) const -> double {return fState.Error(i);}
 
 //interaction via Name of Parameter
 void MnApplication::Fix(const char* i) {fState.Fix(i);}
@@ -148,38 +148,38 @@ void MnApplication::SetLimits(const char* i, double low, double up) { fState.Set
 void MnApplication::RemoveLimits(const char* i) {fState.RemoveLimits(i);}
 void MnApplication::SetPrecision(double eps) {fState.SetPrecision(eps);}
 
-double MnApplication::Value(const char* i) const {return fState.Value(i);}
-double MnApplication::Error(const char* i) const {return fState.Error(i);}
+auto MnApplication::Value(const char* i) const -> double {return fState.Value(i);}
+auto MnApplication::Error(const char* i) const -> double {return fState.Error(i);}
 
 
-unsigned int MnApplication::Index(const char* name) const {
+auto MnApplication::Index(const char* name) const -> unsigned int {
    //convert name into external number of Parameter
    return fState.Index(name);
 }
 
-const char* MnApplication::Name(unsigned int i) const {
+auto MnApplication::Name(unsigned int i) const -> const char* {
    //convert external number into name of Parameter
    return fState.Name(i);
 }
 
 
-double MnApplication::Int2ext(unsigned int i, double val) const {
+auto MnApplication::Int2ext(unsigned int i, double val) const -> double {
    // transformation internal -> external
    return fState.Int2ext(i, val);
 }
-double MnApplication::Ext2int(unsigned int e, double val) const {
+auto MnApplication::Ext2int(unsigned int e, double val) const -> double {
    // transformation external -> internal
    return fState.Ext2int(e, val);
 }
-unsigned int MnApplication::IntOfExt(unsigned int ext) const {
+auto MnApplication::IntOfExt(unsigned int ext) const -> unsigned int {
    // get internal index for external parameter with index ext
    return fState.IntOfExt(ext);
 }
-unsigned int MnApplication::ExtOfInt(unsigned int internal) const {
+auto MnApplication::ExtOfInt(unsigned int internal) const -> unsigned int {
    // get external index for internal parameter with index internal
    return fState.ExtOfInt(internal);
 }
-unsigned int MnApplication::VariableParameters() const {
+auto MnApplication::VariableParameters() const -> unsigned int {
    // get number of variable parameters
    return fState.VariableParameters();
 }

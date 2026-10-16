@@ -25,13 +25,13 @@ namespace ROOT {
    namespace Minuit2 {
 
 
-double inner_product(const LAVector&, const LAVector&);
-double similarity(const LAVector&, const LASymMatrix&);
-double sum_of_elements(const LASymMatrix&);
+auto inner_product(const LAVector&, const LAVector&) -> double;
+auto similarity(const LAVector&, const LASymMatrix&) -> double;
+auto sum_of_elements(const LASymMatrix&) -> double;
 
-MinimumError DavidonErrorUpdator::Update(const MinimumState& s0,
+auto DavidonErrorUpdator::Update(const MinimumState& s0,
                                          const MinimumParameters& p1,
-                                         const FunctionGradient& g1) const {
+                                         const FunctionGradient& g1) const -> MinimumError {
 
    // update of the covarianze matrix (Davidon formula, see Tutorial, par. 4.8 pag 26)
    // in case of delgam > gvg (PHI > 1) use rank one formula

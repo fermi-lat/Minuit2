@@ -22,7 +22,7 @@ namespace ROOT {
 
 
 
-MnAlgebraicSymMatrix BasicMinimumError::Hessian() const {
+auto BasicMinimumError::Hessian() const -> MnAlgebraicSymMatrix {
    // calculate Heassian: inverse of error matrix
    MnAlgebraicSymMatrix tmp(fMatrix);
    int ifail = Invert(tmp);

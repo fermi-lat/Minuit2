@@ -15,9 +15,9 @@ namespace ROOT {
    namespace Minuit2 {
 
 
-int mneigen(double*, unsigned int, unsigned int, unsigned int, double*,double);
+auto mneigen(double*, unsigned int, unsigned int, unsigned int, double*,double) -> int;
 
-LAVector eigenvalues(const LASymMatrix& mat) {
+auto eigenvalues(const LASymMatrix& mat) -> LAVector {
    // calculate eigenvalues of symmetric matrices using mneigen function (transalte from fortran Minuit)
    unsigned int nrow = mat.Nrow();
 

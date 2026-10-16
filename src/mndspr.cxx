@@ -17,11 +17,11 @@ namespace ROOT {
    namespace Minuit2 {
 
 
-bool mnlsame(const char*, const char*);
-int mnxerbla(const char*, int);
+auto mnlsame(const char*, const char*) -> bool;
+auto mnxerbla(const char*, int) -> int;
 
-int mndspr(const char* uplo, unsigned int n, double alpha,
-           const double* x, int incx, double* ap) {
+auto mndspr(const char* uplo, unsigned int n, double alpha,
+           const double* x, int incx, double* ap) -> int {
    /* System generated locals */
    int i__1, i__2;
 

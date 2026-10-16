@@ -15,7 +15,7 @@ namespace ROOT {
    namespace Minuit2 {
 
 
-std::vector<std::pair<double, double> > MnScan::Scan(unsigned int par, unsigned int maxsteps, double low, double high) {
+auto MnScan::Scan(unsigned int par, unsigned int maxsteps, double low, double high) -> std::vector<std::pair<double, double> > {
    // perform a scan of the function in the parameter par
    MnParameterScan scan(fFCN, fState.Parameters());
    double amin = scan.Fval();

@@ -22,14 +22,14 @@ namespace ROOT {
 
 
 
-double SqrtUpParameterTransformation::Int2ext(double value, double upper) const {
+auto SqrtUpParameterTransformation::Int2ext(double value, double upper) const -> double {
    // internal to external transformation
    double val = upper + 1. - sqrt( value*value + 1.);
    return val;
 }
 
 
-double SqrtUpParameterTransformation::Ext2int(double value, double upper, const MnMachinePrecision& ) const {
+auto SqrtUpParameterTransformation::Ext2int(double value, double upper, const MnMachinePrecision& ) const -> double {
    // external to internal transformation
    double yy = upper - value + 1.;
    double yy2 = yy*yy;
@@ -40,7 +40,7 @@ double SqrtUpParameterTransformation::Ext2int(double value, double upper, const 
 }
 
 
-double SqrtUpParameterTransformation::DInt2Ext(double value, double) const {
+auto SqrtUpParameterTransformation::DInt2Ext(double value, double) const -> double {
    // derivative of internal to external transofrmation :  d (Int2Ext ) / d Int
    double val = - value/( sqrt( value*value + 1.) );
    return val;

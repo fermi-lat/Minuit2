@@ -21,7 +21,7 @@ namespace ROOT {
     since matrix is positive-definite.
  */
 
-int mnvert(MnAlgebraicSymMatrix& a) {
+auto mnvert(MnAlgebraicSymMatrix& a) -> int {
 
    unsigned int nrow = a.Nrow();
    MnAlgebraicVector s(nrow);

@@ -24,7 +24,7 @@ namespace ROOT {
 
 // static integer c__1 = 1;
 
-int mnxerbla(const char* srname, int info) {
+auto mnxerbla(const char* srname, int info) -> int {
     /* Format strings */
 //     static char fmt_9999[] = "(\002 ** On entry to \002,a6,\002 Parameter nu\// mber \002,i2,\002 had \002,\002an illegal Value\002)";
 

@@ -12,15 +12,15 @@
         -lf2c -lm   (in that order)
 */
 
-#include <math.h>
+#include <cmath>
 
 namespace ROOT {
 
    namespace Minuit2 {
 
 
-int mneigen(double* a, unsigned int ndima, unsigned int n, unsigned int mits,
-            double* work, double precis) {
+auto mneigen(double* a, unsigned int ndima, unsigned int n, unsigned int mits,
+            double* work, double precis) -> int {
    // compute matrix eignevalues (transaltion from mneig.F of Minuit)
 
    /* System generated locals */

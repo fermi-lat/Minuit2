@@ -18,39 +18,39 @@ MnUserParameters::MnUserParameters(const std::vector<double>& par, const std::ve
 
 // all implemented forwarding to MnUserTransformation class
 
-const std::vector<MinuitParameter>& MnUserParameters::Parameters() const {
+auto MnUserParameters::Parameters() const -> const std::vector<MinuitParameter>& {
    // return vector of MinuitParameter objects
    return fTransformation.Parameters();
 }
 
-std::vector<double> MnUserParameters::Params() const {
+auto MnUserParameters::Params() const -> std::vector<double> {
    // return std::vector of double with parameter values
    return fTransformation.Params();
 }
 
-std::vector<double> MnUserParameters::Errors() const {
+auto MnUserParameters::Errors() const -> std::vector<double> {
    // return std::vector of double with parameter errors
    return fTransformation.Errors();
 }
 
-const MinuitParameter& MnUserParameters::Parameter(unsigned int n) const {
+auto MnUserParameters::Parameter(unsigned int n) const -> const MinuitParameter& {
    // return the MinuitParameter object for index n (external)
    return fTransformation.Parameter(n);
 }
 
-bool MnUserParameters::Add(const std::string & name, double val, double err) {
+auto MnUserParameters::Add(const std::string & name, double val, double err) -> bool {
    // add a new unlimited parameter giving name, value and err (step size)
    // return false if parameter already exists
    return fTransformation.Add(name, val, err);
 }
 
-bool  MnUserParameters::Add(const std::string & name, double val, double err, double low, double up) {
+auto  MnUserParameters::Add(const std::string & name, double val, double err, double low, double up) -> bool {
    // add a new limited parameter giving name, value, err (step size) and lower/upper limits
    // return false if parameter already exists
    return fTransformation.Add(name, val, err, low, up);
 }
 
-bool  MnUserParameters::Add(const std::string & name, double val) {
+auto  MnUserParameters::Add(const std::string & name, double val) -> bool {
    // add a new unlimited parameter giving name and value
    // return false if parameter already exists
    return fTransformation.Add(name, val);
@@ -102,12 +102,12 @@ void MnUserParameters::SetName(unsigned int n, const std::string & name) {
 }
 
 
-double MnUserParameters::Value(unsigned int n) const {
+auto MnUserParameters::Value(unsigned int n) const -> double {
    // get value for parameter n
    return fTransformation.Value(n);
 }
 
-double MnUserParameters::Error(unsigned int n) const {
+auto MnUserParameters::Error(unsigned int n) const -> double {
    // get error for parameter n
    return fTransformation.Error(n);
 }
@@ -154,31 +154,31 @@ void MnUserParameters::RemoveLimits(const std::string & name) {
    RemoveLimits(Index(name));
 }
 
-double MnUserParameters::Value(const std::string & name) const {
+auto MnUserParameters::Value(const std::string & name) const -> double {
    // get parameter value
    return Value(Index(name));
 }
 
-double MnUserParameters::Error(const std::string & name) const {
+auto MnUserParameters::Error(const std::string & name) const -> double {
    // get parameter error
    return Error(Index(name));
 }
 
-unsigned int MnUserParameters::Index(const std::string & name) const {
+auto MnUserParameters::Index(const std::string & name) const -> unsigned int {
    // get index (external) corresponding to name
    return fTransformation.Index(name);
 }
 
-const std::string & MnUserParameters::GetName(unsigned int n) const {
+auto MnUserParameters::GetName(unsigned int n) const -> const std::string & {
    // get name corresponding to index (external)
    return fTransformation.GetName(n);
 }
-const char* MnUserParameters::Name(unsigned int n) const {
+auto MnUserParameters::Name(unsigned int n) const -> const char* {
    // get name corresponding to index (external)
    return fTransformation.Name(n);
 }
 
-const MnMachinePrecision& MnUserParameters::Precision() const {
+auto MnUserParameters::Precision() const -> const MnMachinePrecision& {
    // get global paramter precision
    return fTransformation.Precision();
 }

@@ -19,7 +19,7 @@ MnParameterScan::MnParameterScan(const FCNBase& fcn, const MnUserParameters& par
 
 MnParameterScan::MnParameterScan(const FCNBase& fcn, const MnUserParameters& par, double fval) : fFCN(fcn), fParameters(par), fAmin(fval) {}
 
-std::vector<std::pair<double, double> > MnParameterScan::operator()(unsigned int par, unsigned int maxsteps, double low, double high) {
+auto MnParameterScan::operator()(unsigned int par, unsigned int maxsteps, double low, double high) -> std::vector<std::pair<double, double> > {
    // do the scan for parameter par between low and high values
 
    //if(maxsteps > 101) maxsteps = 101;

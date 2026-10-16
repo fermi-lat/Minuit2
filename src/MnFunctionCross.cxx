@@ -27,8 +27,8 @@ namespace ROOT {
 
 
 
-MnCross MnFunctionCross::operator()(const std::vector<unsigned int>& par, const std::vector<double>& pmid,
-                                    const std::vector<double>& pdir, double tlr, unsigned int maxcalls) const {
+auto MnFunctionCross::operator()(const std::vector<unsigned int>& par, const std::vector<double>& pmid,
+                                    const std::vector<double>& pdir, double tlr, unsigned int maxcalls) const -> MnCross {
    // evaluate crossing point where function is equal to MIN + UP,
    // with direction pdir from values pmid
    // tlr indicate tolerance and maxcalls maximum number of calls

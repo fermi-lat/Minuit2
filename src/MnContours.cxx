@@ -30,13 +30,13 @@ void PrintContourPoint(const std::pair<double,double> & point)  {
    std::cout << "\t x  = " << point.first << "  y = " << point.second << std::endl;
 }
 
-std::vector<std::pair<double,double> > MnContours::operator()(unsigned int px, unsigned int py, unsigned int npoints) const {
+auto MnContours::operator()(unsigned int px, unsigned int py, unsigned int npoints) const -> std::vector<std::pair<double,double> > {
    // get contour as a pair of (x,y) points passing the parameter index (px, py)  and the number of requested points (>=4)
    ContoursError cont = Contour(px, py, npoints);
    return cont();
 }
 
-ContoursError MnContours::Contour(unsigned int px, unsigned int py, unsigned int npoints) const {
+auto MnContours::Contour(unsigned int px, unsigned int py, unsigned int npoints) const -> ContoursError {
    // calculate the contour passing the parameter index (px, py)  and the number of requested points (>=4)
    // the fcn.UP() has to be set to the rquired value (see Minuit document on errors)
    assert(npoints > 3);

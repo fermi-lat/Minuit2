@@ -16,7 +16,7 @@ namespace ROOT {
    namespace Minuit2 {
 
 
-int mndspr(const char*, unsigned int, double, const double*, int, double*);
+auto mndspr(const char*, unsigned int, double, const double*, int, double*) -> int;
 
 LASymMatrix::LASymMatrix(const ABObj<sym, VectorOuterProduct<ABObj<vec, LAVector, double>, double>, double>& out) : fSize(0), fNRow(0), fData(0) {
    // constructor from expression based on outer product of symmetric matrices
@@ -28,7 +28,7 @@ LASymMatrix::LASymMatrix(const ABObj<sym, VectorOuterProduct<ABObj<vec, LAVector
    Outer_prod(*this, out.Obj().Obj().Obj(), out.f()*out.Obj().Obj().f()*out.Obj().Obj().f());
 }
 
-LASymMatrix& LASymMatrix::operator=(const ABObj<sym, VectorOuterProduct<ABObj<vec, LAVector, double>, double>, double>& out) {
+auto LASymMatrix::operator=(const ABObj<sym, VectorOuterProduct<ABObj<vec, LAVector, double>, double>, double>& out) -> LASymMatrix& {
    // assignment operator from expression based on outer product of symmetric matrices
    //   std::cout<<"LASymMatrix& LASymMatrix::operator=(const ABObj<sym, VectorOuterProduct<ABObj<vec, LAVector, double>, double>, double>& out)"<<std::endl;
    if(fSize == 0 && fData == 0) {

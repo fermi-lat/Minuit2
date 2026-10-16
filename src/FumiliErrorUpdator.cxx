@@ -31,12 +31,12 @@ namespace Minuit2 {
 
 
 
-double sum_of_elements(const LASymMatrix&);
+auto sum_of_elements(const LASymMatrix&) -> double;
 
 
-MinimumError FumiliErrorUpdator::Update(const MinimumState& s0,
+auto FumiliErrorUpdator::Update(const MinimumState& s0,
                                         const MinimumParameters& p1,
-                                        const FunctionGradient& g1) const {
+                                        const FunctionGradient& g1) const -> MinimumError {
    // dummy methods to suppress unused variable warnings
    // this member function should never be called within
    // the Fumili method...
@@ -47,10 +47,10 @@ MinimumError FumiliErrorUpdator::Update(const MinimumState& s0,
 }
 
 
-MinimumError FumiliErrorUpdator::Update(const MinimumState& s0,
+auto FumiliErrorUpdator::Update(const MinimumState& s0,
                                         const MinimumParameters& p1,
                                         const GradientCalculator&  gc ,
-                                        double lambda) const {
+                                        double lambda) const -> MinimumError {
    // calculate the error matrix using approximation of Fumili
    // use only first derivatives (see tutorial par. 5.1,5.2)
    // The Fumili Hessian is provided by the FumiliGRadientCalculator class

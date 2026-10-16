@@ -14,9 +14,9 @@ namespace ROOT {
    namespace Minuit2 {
 
 
-double MnTiny::One() const {return fOne;}
+auto MnTiny::One() const -> double {return fOne;}
 
-double MnTiny::operator()(volatile double epsp1) const {
+auto MnTiny::operator()(volatile double epsp1) const -> double {
    // evaluate minimal diference between two floating points
    double result = epsp1 - One();
    return result;

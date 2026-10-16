@@ -29,7 +29,7 @@
 #endif
 #endif
 
-#include <math.h>
+#include <cmath>
 
 #include "Minuit2/MPIProcess.h"
 
@@ -38,7 +38,7 @@ namespace ROOT {
    namespace Minuit2 {
 
 
-FunctionGradient Numerical2PGradientCalculator::operator()(const MinimumParameters& par) const {
+auto Numerical2PGradientCalculator::operator()(const MinimumParameters& par) const -> FunctionGradient {
    // calculate gradient using Initial gradient calculator and from MinimumParameters object
 
    InitialGradientCalculator gc(fFcn, fTransformation, fStrategy);
@@ -49,7 +49,7 @@ FunctionGradient Numerical2PGradientCalculator::operator()(const MinimumParamete
 
 
 // comment it, because it was added
-FunctionGradient Numerical2PGradientCalculator::operator()(const std::vector<double>& params) const {
+auto Numerical2PGradientCalculator::operator()(const std::vector<double>& params) const -> FunctionGradient {
    // calculate gradient from an std;:vector of paramteters
 
    int npar = params.size();
@@ -69,7 +69,7 @@ FunctionGradient Numerical2PGradientCalculator::operator()(const std::vector<dou
 
 
 
-FunctionGradient Numerical2PGradientCalculator::operator()(const MinimumParameters& par, const FunctionGradient& Gradient) const {
+auto Numerical2PGradientCalculator::operator()(const MinimumParameters& par, const FunctionGradient& Gradient) const -> FunctionGradient {
    // calculate numerical gradient from MinimumParameters object
    // the algorithm takes correctly care when the gradient is approximatly zero
 
@@ -234,22 +234,22 @@ FunctionGradient Numerical2PGradientCalculator::operator()(const MinimumParamete
    return FunctionGradient(grd, g2, gstep);
 }
 
-const MnMachinePrecision& Numerical2PGradientCalculator::Precision() const {
+auto Numerical2PGradientCalculator::Precision() const -> const MnMachinePrecision& {
    // return global precision (set in transformation)
    return fTransformation.Precision();
 }
 
-unsigned int Numerical2PGradientCalculator::Ncycle() const {
+auto Numerical2PGradientCalculator::Ncycle() const -> unsigned int {
    // return number of cycles for gradient calculation (set in strategy object)
    return Strategy().GradientNCycles();
 }
 
-double Numerical2PGradientCalculator::StepTolerance() const {
+auto Numerical2PGradientCalculator::StepTolerance() const -> double {
    // return gradient step tolerance (set in strategy object)
    return Strategy().GradientStepTolerance();
 }
 
-double Numerical2PGradientCalculator::GradTolerance() const {
+auto Numerical2PGradientCalculator::GradTolerance() const -> double {
    // return gradient tolerance (set in strategy object)
    return Strategy().GradientTolerance();
 }

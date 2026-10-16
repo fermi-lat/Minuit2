@@ -29,7 +29,7 @@ namespace ROOT {
    namespace Minuit2 {
 
 
-FunctionGradient FumiliGradientCalculator::operator()(const MinimumParameters& par) const {
+auto FumiliGradientCalculator::operator()(const MinimumParameters& par) const -> FunctionGradient {
 
    // Calculate gradient for Fumili using the gradient and Hessian provided by the FCN Fumili function
    // applying the external to int trasformation.
@@ -116,8 +116,8 @@ FunctionGradient FumiliGradientCalculator::operator()(const MinimumParameters& p
    return FunctionGradient(v);
 }
 
-FunctionGradient FumiliGradientCalculator::operator()(const MinimumParameters& par,
-                                                      const FunctionGradient&) const
+auto FumiliGradientCalculator::operator()(const MinimumParameters& par,
+                                                      const FunctionGradient&) const -> FunctionGradient
 
 {
    // Needed for interface of base class.

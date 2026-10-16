@@ -19,7 +19,7 @@ namespace ROOT {
    namespace Minuit2 {
 
 
-FunctionMinimum ScanBuilder::Minimum(const MnFcn& mfcn, const GradientCalculator&, const MinimumSeed& seed, const MnStrategy&, unsigned int, double) const {
+auto ScanBuilder::Minimum(const MnFcn& mfcn, const GradientCalculator&, const MinimumSeed& seed, const MnStrategy&, unsigned int, double) const -> FunctionMinimum {
    // find the function minimum performing a parameter scan (using MnParameterScan class)
    // function gradient is not used
    MnAlgebraicVector x = seed.Parameters().Vec();

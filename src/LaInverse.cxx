@@ -15,11 +15,11 @@ namespace ROOT {
    namespace Minuit2 {
 
 
-int mnvert(LASymMatrix& t);
+auto mnvert(LASymMatrix& t) -> int;
 
 // symmetric matrix (positive definite only)
 
-int Invert(LASymMatrix& t) {
+auto Invert(LASymMatrix& t) -> int {
    // function for inversion of symmetric matrices using  mnvert function
    // (from Fortran Minuit)
 

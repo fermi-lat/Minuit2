@@ -157,7 +157,7 @@ namespace Minuit2 {
 
    }
 
-   bool MPIProcess::SyncVector(ROOT::Minuit2::MnAlgebraicVector &mnvector)
+   auto MPIProcess::SyncVector(ROOT::Minuit2::MnAlgebraicVector &mnvector) -> bool
    {
 
       // In case of just one job, don't need sync, just go
@@ -198,7 +198,7 @@ namespace Minuit2 {
    }
 
 
-   bool MPIProcess::SyncSymMatrixOffDiagonal(ROOT::Minuit2::MnAlgebraicSymMatrix &mnmatrix)
+   auto MPIProcess::SyncSymMatrixOffDiagonal(ROOT::Minuit2::MnAlgebraicSymMatrix &mnmatrix) -> bool
    {
 
       // In case of just one job, don't need sync, just go

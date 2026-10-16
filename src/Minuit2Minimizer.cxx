@@ -70,8 +70,8 @@ void RestoreGlobalPrintLevel(int value) {
 }
 #else
    // dummy functions
-   int TurnOffPrintInfoLevel() { return -1; }
-   int ControlPrintLevel( ) { return -1;}
+   auto TurnOffPrintInfoLevel() -> int { return -1; }
+   auto ControlPrintLevel( ) -> int { return -1;}
    void RestoreGlobalPrintLevel(int ) {}
 #endif
 
@@ -160,7 +160,7 @@ Minuit2Minimizer::Minuit2Minimizer(const Minuit2Minimizer &) :
    // Implementation of copy constructor.
 }
 
-Minuit2Minimizer & Minuit2Minimizer::operator = (const Minuit2Minimizer &rhs)
+auto Minuit2Minimizer::operator = (const Minuit2Minimizer &rhs) -> Minuit2Minimizer &
 {
    // Implementation of assignment operator.
    if (this == &rhs) return *this;  // time saving self-test
@@ -179,7 +179,7 @@ void Minuit2Minimizer::Clear() {
 
 // set variables
 
-bool Minuit2Minimizer::SetVariable(unsigned int ivar, const std::string & name, double val, double step) {
+auto Minuit2Minimizer::SetVariable(unsigned int ivar, const std::string & name, double val, double step) -> bool {
    // set a free variable.
    // Add the variable if not existing otherwise  set value if exists already
    // this is implemented in MnUserParameterState::Add
@@ -209,14 +209,14 @@ bool Minuit2Minimizer::SetVariable(unsigned int ivar, const std::string & name, 
    return true;
 }
 
-bool Minuit2Minimizer::SetLowerLimitedVariable(unsigned int ivar , const std::string & name , double val , double step , double lower ) {
+auto Minuit2Minimizer::SetLowerLimitedVariable(unsigned int ivar , const std::string & name , double val , double step , double lower ) -> bool {
    // add a lower bounded variable
    if (!SetVariable(ivar, name, val, step) ) return false;
    fState.SetLowerLimit(ivar, lower);
    return true;
 }
 
-bool Minuit2Minimizer::SetUpperLimitedVariable(unsigned int ivar , const std::string & name , double val , double step , double upper ) {
+auto Minuit2Minimizer::SetUpperLimitedVariable(unsigned int ivar , const std::string & name , double val , double step , double upper ) -> bool {
    // add a upper bounded variable
    if (!SetVariable(ivar, name, val, step) ) return false;
    fState.SetUpperLimit(ivar, upper);
@@ -225,14 +225,14 @@ bool Minuit2Minimizer::SetUpperLimitedVariable(unsigned int ivar , const std::st
 
 
 
-bool Minuit2Minimizer::SetLimitedVariable(unsigned int ivar , const std::string & name , double val , double step , double lower , double upper) {
+auto Minuit2Minimizer::SetLimitedVariable(unsigned int ivar , const std::string & name , double val , double step , double lower , double upper) -> bool {
    // add a double bound variable
    if (!SetVariable(ivar, name, val, step) ) return false;
    fState.SetLimits(ivar, lower, upper);
    return true;
 }
 
-bool Minuit2Minimizer::SetFixedVariable(unsigned int ivar , const std::string & name , double val ) {
+auto Minuit2Minimizer::SetFixedVariable(unsigned int ivar , const std::string & name , double val ) -> bool {
    // add a fixed variable
    // need a step size otherwise treated as a constant
    // use 10%
@@ -244,28 +244,28 @@ bool Minuit2Minimizer::SetFixedVariable(unsigned int ivar , const std::string & 
    return true;
 }
 
-std::string Minuit2Minimizer::VariableName(unsigned int ivar) const {
+auto Minuit2Minimizer::VariableName(unsigned int ivar) const -> std::string {
    // return the variable name
    if (ivar >= fState.MinuitParameters().size() ) return std::string();
    return fState.GetName(ivar);
 }
 
 
-int Minuit2Minimizer::VariableIndex(const std::string & name) const {
+auto Minuit2Minimizer::VariableIndex(const std::string & name) const -> int {
    // return the variable index
    // check if variable exist
    return fState.Trafo().FindIndex(name);
 }
 
 
-bool Minuit2Minimizer::SetVariableValue(unsigned int ivar, double val) {
+auto Minuit2Minimizer::SetVariableValue(unsigned int ivar, double val) -> bool {
    // set value for variable ivar (only for existing parameters)
    if (ivar >= fState.MinuitParameters().size() ) return false;
    fState.SetValue(ivar, val);
    return true;
 }
 
-bool Minuit2Minimizer::SetVariableValues(const double * x)  {
+auto Minuit2Minimizer::SetVariableValues(const double * x) -> bool  {
    // set value for variable ivar (only for existing parameters)
    unsigned int n =  fState.MinuitParameters().size();
    if (n== 0) return false;
@@ -274,7 +274,7 @@ bool Minuit2Minimizer::SetVariableValues(const double * x)  {
    return true;
 }
 
-bool Minuit2Minimizer::SetVariableStepSize(unsigned int ivar, double step) {
+auto Minuit2Minimizer::SetVariableStepSize(unsigned int ivar, double step) -> bool {
    // set the step-size of an existing variable
    // parameter must exist or return false
    if (ivar >= fState.MinuitParameters().size() ) return false;
@@ -282,14 +282,14 @@ bool Minuit2Minimizer::SetVariableStepSize(unsigned int ivar, double step) {
    return true;
 }
 
-bool Minuit2Minimizer::SetVariableLowerLimit(unsigned int ivar, double lower) {
+auto Minuit2Minimizer::SetVariableLowerLimit(unsigned int ivar, double lower) -> bool {
    // set the limits of an existing variable
    // parameter must exist or return false
    if (ivar >= fState.MinuitParameters().size() ) return false;
    fState.SetLowerLimit(ivar, lower);
    return true;
 }
-bool Minuit2Minimizer::SetVariableUpperLimit(unsigned int ivar, double upper ) {
+auto Minuit2Minimizer::SetVariableUpperLimit(unsigned int ivar, double upper ) -> bool {
    // set the limits of an existing variable
    // parameter must exist or return false
    if (ivar >= fState.MinuitParameters().size() ) return false;
@@ -297,7 +297,7 @@ bool Minuit2Minimizer::SetVariableUpperLimit(unsigned int ivar, double upper ) {
    return true;
 }
 
-bool Minuit2Minimizer::SetVariableLimits(unsigned int ivar, double lower, double upper) {
+auto Minuit2Minimizer::SetVariableLimits(unsigned int ivar, double lower, double upper) -> bool {
    // set the limits of an existing variable
    // parameter must exist or return false
    if (ivar >= fState.MinuitParameters().size() ) return false;
@@ -305,21 +305,21 @@ bool Minuit2Minimizer::SetVariableLimits(unsigned int ivar, double lower, double
    return true;
 }
 
-bool Minuit2Minimizer::FixVariable(unsigned int ivar) {
+auto Minuit2Minimizer::FixVariable(unsigned int ivar) -> bool {
    // Fix an existing variable
    if (ivar >= fState.MinuitParameters().size() ) return false;
    fState.Fix(ivar);
    return true;
 }
 
-bool Minuit2Minimizer::ReleaseVariable(unsigned int ivar) {
+auto Minuit2Minimizer::ReleaseVariable(unsigned int ivar) -> bool {
    // Release an existing variable
    if (ivar >= fState.MinuitParameters().size() ) return false;
    fState.Release(ivar);
    return true;
 }
 
-bool Minuit2Minimizer::IsFixedVariable(unsigned int ivar) const {
+auto Minuit2Minimizer::IsFixedVariable(unsigned int ivar) const -> bool {
    // query if variable is fixed
    if (ivar >= fState.MinuitParameters().size() ) {
       MN_ERROR_MSG2("Minuit2Minimizer","wrong variable index");
@@ -328,7 +328,7 @@ bool Minuit2Minimizer::IsFixedVariable(unsigned int ivar) const {
    return (fState.Parameter(ivar).IsFixed() || fState.Parameter(ivar).IsConst() );
 }
 
-bool Minuit2Minimizer::GetVariableSettings(unsigned int ivar, ROOT::Fit::ParameterSettings & varObj) const {
+auto Minuit2Minimizer::GetVariableSettings(unsigned int ivar, ROOT::Fit::ParameterSettings & varObj) const -> bool {
    // retrieve variable settings (all set info on the variable)
    if (ivar >= fState.MinuitParameters().size() ) {
       MN_ERROR_MSG2("Minuit2Minimizer","wrong variable index");
@@ -387,7 +387,7 @@ void Minuit2Minimizer::SetFunction(const  ROOT::Math::IMultiGradFunction & func)
    }
 }
 
-bool Minuit2Minimizer::Minimize() {
+auto Minuit2Minimizer::Minimize() -> bool {
    // perform the minimization
    // store a copy of FunctionMinimum
    if (!fMinuitFCN) {
@@ -535,7 +535,7 @@ bool Minuit2Minimizer::Minimize() {
    return ok;
 }
 
-bool  Minuit2Minimizer::ExamineMinimum(const ROOT::Minuit2::FunctionMinimum & min) {
+auto  Minuit2Minimizer::ExamineMinimum(const ROOT::Minuit2::FunctionMinimum & min) -> bool {
    /// study the function minimum
 
    // debug ( print all the states)
@@ -650,7 +650,7 @@ void Minuit2Minimizer::PrintResults() {
    }
 }
 
-const double * Minuit2Minimizer::Errors() const {
+auto Minuit2Minimizer::Errors() const -> const double * {
    // return error at minimum (set to zero for fixed and constant params)
    const std::vector<MinuitParameter> & paramsObj = fState.MinuitParameters();
    if (paramsObj.size() == 0) return 0;
@@ -670,7 +670,7 @@ const double * Minuit2Minimizer::Errors() const {
 }
 
 
-double Minuit2Minimizer::CovMatrix(unsigned int i, unsigned int j) const {
+auto Minuit2Minimizer::CovMatrix(unsigned int i, unsigned int j) const -> double {
    // get value of covariance matrices (transform from external to internal indices)
    if ( i >= fDim || j >= fDim) return 0;
    if (  !fState.HasCovariance()    ) return 0; // no info available when minimization has failed
@@ -681,7 +681,7 @@ double Minuit2Minimizer::CovMatrix(unsigned int i, unsigned int j) const {
    return fState.Covariance()(k,l);
 }
 
-bool Minuit2Minimizer::GetCovMatrix(double * cov) const {
+auto Minuit2Minimizer::GetCovMatrix(double * cov) const -> bool {
    // get value of covariance matrices
    if ( !fState.HasCovariance()    ) return false; // no info available when minimization has failed
    for (unsigned int i = 0; i < fDim; ++i) {
@@ -708,7 +708,7 @@ bool Minuit2Minimizer::GetCovMatrix(double * cov) const {
    return true;
 }
 
-bool Minuit2Minimizer::GetHessianMatrix(double * hess) const {
+auto Minuit2Minimizer::GetHessianMatrix(double * hess) const -> bool {
    // get value of Hessian matrix
    // this is the second derivative matrices
    if (  !fState.HasCovariance()    ) return false; // no info available when minimization has failed
@@ -737,7 +737,7 @@ bool Minuit2Minimizer::GetHessianMatrix(double * hess) const {
 }
 
 
-double Minuit2Minimizer::Correlation(unsigned int i, unsigned int j) const {
+auto Minuit2Minimizer::Correlation(unsigned int i, unsigned int j) const -> double {
    // get correlation between parameter i and j
    if ( i >= fDim || j >= fDim) return 0;
    if (  !fState.HasCovariance()    ) return 0; // no info available when minimization has failed
@@ -751,7 +751,7 @@ double Minuit2Minimizer::Correlation(unsigned int i, unsigned int j) const {
    return 0;
 }
 
-double Minuit2Minimizer::GlobalCC(unsigned int i) const {
+auto Minuit2Minimizer::GlobalCC(unsigned int i) const -> double {
    // get global correlation coefficient for the parameter i. This is a number between zero and one which gives
    // the correlation between the i-th parameter  and that linear combination of all other parameters which
    // is most strongly correlated with i.
@@ -765,7 +765,7 @@ double Minuit2Minimizer::GlobalCC(unsigned int i) const {
 }
 
 
-bool Minuit2Minimizer::GetMinosError(unsigned int i, double & errLow, double & errUp, int runopt) {
+auto Minuit2Minimizer::GetMinosError(unsigned int i, double & errLow, double & errUp, int runopt) -> bool {
    // return the minos error for parameter i
    // if a minimum does not exist an error is returned
    // runopt is a flag which specifies if only lower or upper error needs to be run
@@ -836,7 +836,7 @@ bool Minuit2Minimizer::GetMinosError(unsigned int i, double & errLow, double & e
 }
 
 
-int Minuit2Minimizer::RunMinosError(unsigned int i, double & errLow, double & errUp, int runopt) {
+auto Minuit2Minimizer::RunMinosError(unsigned int i, double & errLow, double & errUp, int runopt) -> int {
    // switch off Minuit2 printing
 
    bool runLower = runopt != 2;
@@ -998,7 +998,7 @@ int Minuit2Minimizer::RunMinosError(unsigned int i, double & errLow, double & er
 }
 
 
-bool Minuit2Minimizer::Scan(unsigned int ipar, unsigned int & nstep, double * x, double * y, double xmin, double xmax) {
+auto Minuit2Minimizer::Scan(unsigned int ipar, unsigned int & nstep, double * x, double * y, double xmin, double xmax) -> bool {
    // scan a parameter (variable) around the minimum value
    // the parameters must have been set before
    // if xmin=0 && xmax == 0  by default scan around 2 sigma of the error
@@ -1056,7 +1056,7 @@ bool Minuit2Minimizer::Scan(unsigned int ipar, unsigned int & nstep, double * x,
    return true;
 }
 
-bool Minuit2Minimizer::Contour(unsigned int ipar, unsigned int jpar, unsigned int & npoints, double * x, double * y) {
+auto Minuit2Minimizer::Contour(unsigned int ipar, unsigned int jpar, unsigned int & npoints, double * x, double * y) -> bool {
    // contour plot for parameter i and j
    // need a valid FunctionMinimum otherwise exits
    if (fMinimum == 0) {
@@ -1113,7 +1113,7 @@ bool Minuit2Minimizer::Contour(unsigned int ipar, unsigned int jpar, unsigned in
 
 }
 
-bool Minuit2Minimizer::Hesse( ) {
+auto Minuit2Minimizer::Hesse( ) -> bool {
     // find Hessian (full second derivative calculations)
    // the contained state will be updated with the Hessian result
    // in case a function minimum exists and is valid the result will be
@@ -1199,7 +1199,7 @@ bool Minuit2Minimizer::Hesse( ) {
    return true;
 }
 
-int Minuit2Minimizer::CovMatrixStatus() const {
+auto Minuit2Minimizer::CovMatrixStatus() const -> int {
    // return status of covariance matrix
    //-1 - not available (inversion failed or Hesse failed)
    // 0 - available but not positive defined

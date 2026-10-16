@@ -15,15 +15,15 @@ namespace ROOT {
    namespace Minuit2 {
 
 
-double mndasum(unsigned int, const double*, int);
+auto mndasum(unsigned int, const double*, int) -> double;
 
-double sum_of_elements(const LAVector& v) {
+auto sum_of_elements(const LAVector& v) -> double {
    // calculate the absolute sum of the vector elements using mndasum
    // which is a translation from dasum from BLAS
    return mndasum(v.size(), v.Data(), 1);
 }
 
-double sum_of_elements(const LASymMatrix& m) {
+auto sum_of_elements(const LASymMatrix& m) -> double {
    // calculate the absolute sum of all the matrix elements using mndasum
    // which is a translation of dasum from BLAS
    return mndasum(m.size(), m.Data(), 1);

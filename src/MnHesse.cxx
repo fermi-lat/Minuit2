@@ -35,32 +35,32 @@ namespace ROOT {
    namespace Minuit2 {
 
 
-MnUserParameterState MnHesse::operator()(const FCNBase& fcn, const std::vector<double>& par, const std::vector<double>& err, unsigned int maxcalls) const {
+auto MnHesse::operator()(const FCNBase& fcn, const std::vector<double>& par, const std::vector<double>& err, unsigned int maxcalls) const -> MnUserParameterState {
    // interface from vector of params and errors
    return (*this)(fcn, MnUserParameterState(par, err), maxcalls);
 }
 
-MnUserParameterState MnHesse::operator()(const FCNBase& fcn, const std::vector<double>& par, unsigned int nrow, const std::vector<double>& cov,  unsigned int maxcalls) const {
+auto MnHesse::operator()(const FCNBase& fcn, const std::vector<double>& par, unsigned int nrow, const std::vector<double>& cov,  unsigned int maxcalls) const -> MnUserParameterState {
    // interface from vector of params and covariance
    return (*this)(fcn, MnUserParameterState(par, cov, nrow), maxcalls);
 }
 
-MnUserParameterState MnHesse::operator()(const FCNBase& fcn, const std::vector<double>& par, const MnUserCovariance& cov, unsigned int maxcalls) const {
+auto MnHesse::operator()(const FCNBase& fcn, const std::vector<double>& par, const MnUserCovariance& cov, unsigned int maxcalls) const -> MnUserParameterState {
     // interface from vector of params and covariance
    return (*this)(fcn, MnUserParameterState(par, cov), maxcalls);
 }
 
-MnUserParameterState MnHesse::operator()(const FCNBase& fcn, const MnUserParameters& par, unsigned int maxcalls) const {
+auto MnHesse::operator()(const FCNBase& fcn, const MnUserParameters& par, unsigned int maxcalls) const -> MnUserParameterState {
    // interface from MnUserParameters
    return (*this)(fcn, MnUserParameterState(par), maxcalls);
 }
 
-MnUserParameterState MnHesse::operator()(const FCNBase& fcn, const MnUserParameters& par, const MnUserCovariance& cov, unsigned int maxcalls) const {
+auto MnHesse::operator()(const FCNBase& fcn, const MnUserParameters& par, const MnUserCovariance& cov, unsigned int maxcalls) const -> MnUserParameterState {
    // interface from MnUserParameters and MnUserCovariance
    return (*this)(fcn, MnUserParameterState(par, cov), maxcalls);
 }
 
-MnUserParameterState MnHesse::operator()(const FCNBase& fcn, const MnUserParameterState& state, unsigned int maxcalls) const {
+auto MnHesse::operator()(const FCNBase& fcn, const MnUserParameterState& state, unsigned int maxcalls) const -> MnUserParameterState {
    // interface from MnUserParameterState
    // create a new Minimum state and use that interface
    unsigned int n = state.VariableParameters();
@@ -85,7 +85,7 @@ void MnHesse::operator()(const FCNBase& fcn, FunctionMinimum& min, unsigned int 
    min.Add(st);
 }
 
-MinimumState MnHesse::operator()(const MnFcn& mfcn, const MinimumState& st, const MnUserTransformation& trafo, unsigned int maxcalls) const {
+auto MnHesse::operator()(const MnFcn& mfcn, const MinimumState& st, const MnUserTransformation& trafo, unsigned int maxcalls) const -> MinimumState {
    // internal interface from MinimumState and MnUserTransformation
    // Function who does the real Hessian calculations
 

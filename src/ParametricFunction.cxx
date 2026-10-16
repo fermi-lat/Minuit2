@@ -23,7 +23,7 @@ namespace ROOT {
 
 
 
-std::vector<double>  ParametricFunction::GetGradient(const std::vector<double>& x) const {
+auto  ParametricFunction::GetGradient(const std::vector<double>& x) const -> std::vector<double> {
    // calculate the numerical gradient (using Numerical2PGradientCalculator)
 
    //LM:  this I believe is not very efficient

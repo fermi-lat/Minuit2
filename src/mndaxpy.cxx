@@ -17,8 +17,8 @@ namespace ROOT {
    namespace Minuit2 {
 
 
-int Mndaxpy(unsigned int n, double da, const double* dx, int incx, double* dy,
-            int incy) {
+auto Mndaxpy(unsigned int n, double da, const double* dx, int incx, double* dy,
+            int incy) -> int {
    /* System generated locals */
    int i__1;
 

@@ -17,8 +17,8 @@ namespace ROOT {
    namespace Minuit2 {
 
 
-double mnddot(unsigned int n, const double* dx, int incx, const double* dy,
-              int incy) {
+auto mnddot(unsigned int n, const double* dx, int incx, const double* dy,
+              int incy) -> double {
    /* System generated locals */
    int i__1;
    double ret_val;

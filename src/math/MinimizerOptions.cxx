@@ -79,17 +79,17 @@ void MinimizerOptions::SetDefaultExtraOptions(const IOptions * extraoptions) {
    Minim::gDefaultExtraOptions = (extraoptions) ? extraoptions->Clone() : 0;
 }
 
-const std::string & MinimizerOptions::DefaultMinimizerAlgo() { return Minim::gDefaultMinimAlgo; }
-double MinimizerOptions::DefaultErrorDef()         { return Minim::gDefaultErrorDef; }
-double MinimizerOptions::DefaultTolerance()        { return Minim::gDefaultTolerance; }
-double MinimizerOptions::DefaultPrecision()        { return Minim::gDefaultPrecision; }
-int    MinimizerOptions::DefaultMaxFunctionCalls() { return Minim::gDefaultMaxCalls; }
-int    MinimizerOptions::DefaultMaxIterations()    { return Minim::gDefaultMaxIter; }
-int    MinimizerOptions::DefaultStrategy()         { return Minim::gDefaultStrategy; }
-int    MinimizerOptions::DefaultPrintLevel()       { return Minim::gDefaultPrintLevel; }
-IOptions * MinimizerOptions::DefaultExtraOptions() { return Minim::gDefaultExtraOptions; }
+auto MinimizerOptions::DefaultMinimizerAlgo() -> const std::string & { return Minim::gDefaultMinimAlgo; }
+auto MinimizerOptions::DefaultErrorDef() -> double         { return Minim::gDefaultErrorDef; }
+auto MinimizerOptions::DefaultTolerance() -> double        { return Minim::gDefaultTolerance; }
+auto MinimizerOptions::DefaultPrecision() -> double        { return Minim::gDefaultPrecision; }
+auto    MinimizerOptions::DefaultMaxFunctionCalls() -> int { return Minim::gDefaultMaxCalls; }
+auto    MinimizerOptions::DefaultMaxIterations() -> int    { return Minim::gDefaultMaxIter; }
+auto    MinimizerOptions::DefaultStrategy() -> int         { return Minim::gDefaultStrategy; }
+auto    MinimizerOptions::DefaultPrintLevel() -> int       { return Minim::gDefaultPrintLevel; }
+auto MinimizerOptions::DefaultExtraOptions() -> IOptions * { return Minim::gDefaultExtraOptions; }
 
-const std::string & MinimizerOptions::DefaultMinimizerType()
+auto MinimizerOptions::DefaultMinimizerType() -> const std::string &
 {
    // return default minimizer
    // if is "" (no default is set) read from etc/system.rootrc
@@ -136,7 +136,7 @@ MinimizerOptions::MinimizerOptions(const MinimizerOptions & opt) : fExtraOptions
    (*this) = opt;
 }
 
-MinimizerOptions & MinimizerOptions::operator=(const MinimizerOptions & opt) {
+auto MinimizerOptions::operator=(const MinimizerOptions & opt) -> MinimizerOptions & {
    // assignment operator
    if (this == &opt) return *this; // self assignment
    fLevel = opt.fLevel;
@@ -216,12 +216,12 @@ void MinimizerOptions::Print(std::ostream & os) const {
    }
 }
 
-IOptions & MinimizerOptions::Default(const char * name) {
+auto MinimizerOptions::Default(const char * name) -> IOptions & {
    // create default extra options for the given algorithm type
    return GenAlgoOptions::Default(name);
 }
 
-IOptions * MinimizerOptions::FindDefault(const char * name) {
+auto MinimizerOptions::FindDefault(const char * name) -> IOptions * {
    // find extra options for the given algorithm type
    return GenAlgoOptions::FindDefault(name);
 }

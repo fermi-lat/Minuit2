@@ -42,9 +42,9 @@ namespace ROOT {
 
 
 
-double inner_product(const LAVector&, const LAVector&);
+auto inner_product(const LAVector&, const LAVector&) -> double;
 
-FunctionMinimum FumiliBuilder::Minimum(const MnFcn& fcn, const GradientCalculator& gc, const MinimumSeed& seed, const MnStrategy& strategy, unsigned int maxfcn, double edmval) const {
+auto FumiliBuilder::Minimum(const MnFcn& fcn, const GradientCalculator& gc, const MinimumSeed& seed, const MnStrategy& strategy, unsigned int maxfcn, double edmval) const -> FunctionMinimum {
    // top level function to find minimum from a given initial seed
    // iterate on a minimum search in case of first attempt is not successful
 
@@ -196,7 +196,7 @@ FunctionMinimum FumiliBuilder::Minimum(const MnFcn& fcn, const GradientCalculato
 
 }
 
-FunctionMinimum FumiliBuilder::Minimum(const MnFcn& fcn, const GradientCalculator& gc, const MinimumSeed& seed, std::vector<MinimumState>& result, unsigned int maxfcn, double edmval) const {
+auto FumiliBuilder::Minimum(const MnFcn& fcn, const GradientCalculator& gc, const MinimumSeed& seed, std::vector<MinimumState>& result, unsigned int maxfcn, double edmval) const -> FunctionMinimum {
 
    // function performing the minimum searches using the FUMILI algorithm
    // after the modification when I iterate on this functions, so it can be called many times,

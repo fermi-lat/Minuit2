@@ -12,14 +12,14 @@
    -lf2c -lm   (in that order)
 */
 
-#include <string.h>
+#include <cstring>
 
 namespace ROOT {
 
    namespace Minuit2 {
 
 
-bool mnlsame(const char* ca, const char* cb) {
+auto mnlsame(const char* ca, const char* cb) -> bool {
    /* System generated locals */
    bool ret_val = false;
 

@@ -16,9 +16,9 @@ namespace ROOT {
    namespace Minuit2 {
 
 
-double mnddot(unsigned int, const double*, int, const double*, int);
+auto mnddot(unsigned int, const double*, int, const double*, int) -> double;
 
-double similarity(const LAVector& avec, const LASymMatrix& mat) {
+auto similarity(const LAVector& avec, const LASymMatrix& mat) -> double {
    // calculate the similarity vector-matrix product: V^T M V
    // use matrix product and then dot function (using mnddot)
 

@@ -38,13 +38,13 @@ int gPrintLevel = 0;
 #endif
 
 
-int MnPrint::SetLevel(int level) {
+auto MnPrint::SetLevel(int level) -> int {
    int prevLevel  = gPrintLevel;
    gPrintLevel = level;
    return prevLevel;
 }
 
-int MnPrint::Level( ) {
+auto MnPrint::Level( ) -> int {
    return gPrintLevel;
 }
 
@@ -73,7 +73,7 @@ void MnPrint::PrintState(std::ostream & os, double fval, double edm, int ncalls,
 }
 
 
-std::ostream& operator<<(std::ostream& os, const LAVector& vec) {
+auto operator<<(std::ostream& os, const LAVector& vec) -> std::ostream& {
    // print a vector
    os << "LAVector parameters:" << std::endl;
    int pr = os.precision(PRECISION);
@@ -88,7 +88,7 @@ std::ostream& operator<<(std::ostream& os, const LAVector& vec) {
    return os;
 }
 
-std::ostream& operator<<(std::ostream& os, const LASymMatrix& matrix) {
+auto operator<<(std::ostream& os, const LASymMatrix& matrix) -> std::ostream& {
    // print a matrix
    os << "LASymMatrix parameters:" << std::endl;
    int pr = os.precision(8);
@@ -106,7 +106,7 @@ std::ostream& operator<<(std::ostream& os, const LASymMatrix& matrix) {
    return os;
 }
 
-std::ostream& operator<<(std::ostream& os, const MnUserParameters& par) {
+auto operator<<(std::ostream& os, const MnUserParameters& par) -> std::ostream& {
    // print the MnUserParameter object
    os << std::endl;
 
@@ -155,7 +155,7 @@ std::ostream& operator<<(std::ostream& os, const MnUserParameters& par) {
    return os;
 }
 
-std::ostream& operator<<(std::ostream& os, const MnUserCovariance& matrix) {
+auto operator<<(std::ostream& os, const MnUserCovariance& matrix) -> std::ostream& {
    // print the MnUserCovariance
    os << std::endl;
 
@@ -192,7 +192,7 @@ std::ostream& operator<<(std::ostream& os, const MnUserCovariance& matrix) {
    return os;
 }
 
-std::ostream& operator<<(std::ostream& os, const MnGlobalCorrelationCoeff& coeff) {
+auto operator<<(std::ostream& os, const MnGlobalCorrelationCoeff& coeff) -> std::ostream& {
    // print the global correlation coefficient
    os << std::endl;
 
@@ -210,7 +210,7 @@ std::ostream& operator<<(std::ostream& os, const MnGlobalCorrelationCoeff& coeff
    return os;
 }
 
-std::ostream& operator<<(std::ostream& os, const MnUserParameterState& state) {
+auto operator<<(std::ostream& os, const MnUserParameterState& state) -> std::ostream& {
    // print the MnUserParameterState
    os << std::endl;
 
@@ -242,7 +242,7 @@ std::ostream& operator<<(std::ostream& os, const MnUserParameterState& state) {
    return os;
 }
 
-std::ostream& operator<<(std::ostream& os, const FunctionMinimum& min) {
+auto operator<<(std::ostream& os, const FunctionMinimum& min) -> std::ostream& {
    // print the FunctionMinimum
    os << std::endl;
    if(!min.IsValid()) {
@@ -281,7 +281,7 @@ std::ostream& operator<<(std::ostream& os, const FunctionMinimum& min) {
    return os;
 }
 
-std::ostream& operator<<(std::ostream& os, const MinimumState& min) {
+auto operator<<(std::ostream& os, const MinimumState& min) -> std::ostream& {
 
    os << std::endl;
    int pr = os.precision(PRECISION);
@@ -299,7 +299,7 @@ std::ostream& operator<<(std::ostream& os, const MinimumState& min) {
    return os;
 }
 
-std::ostream& operator<<(std::ostream& os, const MnMachinePrecision& prec) {
+auto operator<<(std::ostream& os, const MnMachinePrecision& prec) -> std::ostream& {
    // print the Precision
    os << std::endl;
 
@@ -312,7 +312,7 @@ std::ostream& operator<<(std::ostream& os, const MnMachinePrecision& prec) {
    return os;
 }
 
-std::ostream& operator<<(std::ostream& os, const MinosError& me) {
+auto operator<<(std::ostream& os, const MinosError& me) -> std::ostream& {
    // print the Minos Error
    os << std::endl;
 
@@ -354,7 +354,7 @@ std::ostream& operator<<(std::ostream& os, const MinosError& me) {
    return os;
 }
 
-std::ostream& operator<<(std::ostream& os, const ContoursError& ce) {
+auto operator<<(std::ostream& os, const ContoursError& ce) -> std::ostream& {
    // print the ContoursError
    os << std::endl;
    os <<"Contours # of function calls: "<<ce.NFcn()<<std::endl;

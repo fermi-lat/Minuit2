@@ -12,7 +12,7 @@
 
 #include <vector>
 #include <cmath>
-#include <float.h>
+#include <cfloat>
 
 namespace ROOT {
 
@@ -21,7 +21,7 @@ namespace ROOT {
 
 //#include <iostream>
 
-std::vector<double> FumiliStandardMaximumLikelihoodFCN::Elements(const std::vector<double>& par) const {
+auto FumiliStandardMaximumLikelihoodFCN::Elements(const std::vector<double>& par) const -> std::vector<double> {
 
    //   calculate likelihood element f(i) = pdf(x(i))
    std::vector<double> result;
@@ -51,14 +51,14 @@ std::vector<double> FumiliStandardMaximumLikelihoodFCN::Elements(const std::vect
 
 
 
-const std::vector<double> & FumiliStandardMaximumLikelihoodFCN::GetMeasurement(int index) const {
+auto FumiliStandardMaximumLikelihoodFCN::GetMeasurement(int index) const -> const std::vector<double> & {
    // Return x(i).
    return fPositions[index];
 
 }
 
 
-int FumiliStandardMaximumLikelihoodFCN::GetNumberOfMeasurements() const {
+auto FumiliStandardMaximumLikelihoodFCN::GetNumberOfMeasurements() const -> int {
    // return size of positions (coordinates).
    return fPositions.size();
 

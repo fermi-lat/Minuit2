@@ -38,14 +38,14 @@ namespace ROOT {
 
 // #include "Minuit2/MnUserParametersPrint.h"
 
-FunctionMinimum ModularFunctionMinimizer::Minimize(const FCNBase& fcn, const std::vector<double>& par, const std::vector<double>& err, unsigned int stra, unsigned int maxfcn, double toler) const {
+auto ModularFunctionMinimizer::Minimize(const FCNBase& fcn, const std::vector<double>& par, const std::vector<double>& err, unsigned int stra, unsigned int maxfcn, double toler) const -> FunctionMinimum {
    // minimize from FCNBase and std::vector of double's for parameter values and errors (step sizes)
    MnUserParameterState st(par, err);
    MnStrategy strategy(stra);
    return Minimize(fcn, st, strategy, maxfcn, toler);
 }
 
-FunctionMinimum ModularFunctionMinimizer::Minimize(const FCNGradientBase& fcn, const std::vector<double>& par, const std::vector<double>& err, unsigned int stra, unsigned int maxfcn, double toler) const {
+auto ModularFunctionMinimizer::Minimize(const FCNGradientBase& fcn, const std::vector<double>& par, const std::vector<double>& err, unsigned int stra, unsigned int maxfcn, double toler) const -> FunctionMinimum {
    // minimize from FCNGradientBase (use analytical gradient provided in FCN)
    // and std::vector of double's for parameter values and errors (step sizes)
    MnUserParameterState st(par, err);
@@ -54,7 +54,7 @@ FunctionMinimum ModularFunctionMinimizer::Minimize(const FCNGradientBase& fcn, c
 }
 
 // move nrow before cov to avoid ambiguities when using default parameters
-FunctionMinimum ModularFunctionMinimizer::Minimize(const FCNBase& fcn, const std::vector<double>& par, unsigned int nrow, const std::vector<double>& cov, unsigned int stra, unsigned int maxfcn, double toler) const {
+auto ModularFunctionMinimizer::Minimize(const FCNBase& fcn, const std::vector<double>& par, unsigned int nrow, const std::vector<double>& cov, unsigned int stra, unsigned int maxfcn, double toler) const -> FunctionMinimum {
    // minimize from FCNBase using std::vector for parameter error and
    // an std::vector of size n*(n+1)/2 for the covariance matrix  and n (rank of cov matrix)
 
@@ -63,7 +63,7 @@ FunctionMinimum ModularFunctionMinimizer::Minimize(const FCNBase& fcn, const std
    return Minimize(fcn, st, strategy, maxfcn, toler);
 }
 
-FunctionMinimum ModularFunctionMinimizer::Minimize(const FCNGradientBase& fcn, const std::vector<double>& par, unsigned int nrow, const std::vector<double>& cov, unsigned int stra, unsigned int maxfcn, double toler) const {
+auto ModularFunctionMinimizer::Minimize(const FCNGradientBase& fcn, const std::vector<double>& par, unsigned int nrow, const std::vector<double>& cov, unsigned int stra, unsigned int maxfcn, double toler) const -> FunctionMinimum {
    // minimize from FCNGradientBase (use analytical gradient provided in FCN)
    // using std::vector for parameter error and
    // an std::vector of size n*(n+1)/2 for the covariance matrix  and n (rank of cov matrix)
@@ -73,28 +73,28 @@ FunctionMinimum ModularFunctionMinimizer::Minimize(const FCNGradientBase& fcn, c
    return Minimize(fcn, st, strategy, maxfcn, toler);
 }
 
-FunctionMinimum ModularFunctionMinimizer::Minimize(const FCNBase& fcn, const MnUserParameters& upar, const MnStrategy& strategy, unsigned int maxfcn, double toler) const {
+auto ModularFunctionMinimizer::Minimize(const FCNBase& fcn, const MnUserParameters& upar, const MnStrategy& strategy, unsigned int maxfcn, double toler) const -> FunctionMinimum {
    // minimize from FCNBase and MnUserParameters object
 
    MnUserParameterState st(upar);
    return Minimize(fcn, st, strategy, maxfcn, toler);
 }
 
-FunctionMinimum ModularFunctionMinimizer::Minimize(const FCNGradientBase& fcn, const MnUserParameters& upar, const MnStrategy& strategy, unsigned int maxfcn, double toler) const {
+auto ModularFunctionMinimizer::Minimize(const FCNGradientBase& fcn, const MnUserParameters& upar, const MnStrategy& strategy, unsigned int maxfcn, double toler) const -> FunctionMinimum {
    // minimize from FCNGradientBase (use analytical gradient provided in FCN)  and MnUserParameters object
 
    MnUserParameterState st(upar);
    return Minimize(fcn, st, strategy, maxfcn, toler);
 }
 
-FunctionMinimum ModularFunctionMinimizer::Minimize(const FCNBase& fcn, const MnUserParameters& upar, const MnUserCovariance& cov, const MnStrategy& strategy, unsigned int maxfcn, double toler) const {
+auto ModularFunctionMinimizer::Minimize(const FCNBase& fcn, const MnUserParameters& upar, const MnUserCovariance& cov, const MnStrategy& strategy, unsigned int maxfcn, double toler) const -> FunctionMinimum {
    // minimize from FCNBase and MnUserParameters and MnUserCovariance objects
 
    MnUserParameterState st(upar, cov);
    return Minimize(fcn, st, strategy, maxfcn, toler);
 }
 
-FunctionMinimum ModularFunctionMinimizer::Minimize(const FCNGradientBase& fcn, const MnUserParameters& upar, const MnUserCovariance& cov, const MnStrategy& strategy, unsigned int maxfcn, double toler) const {
+auto ModularFunctionMinimizer::Minimize(const FCNGradientBase& fcn, const MnUserParameters& upar, const MnUserCovariance& cov, const MnStrategy& strategy, unsigned int maxfcn, double toler) const -> FunctionMinimum {
    // minimize from FCNGradientBase (use analytical gradient provided in FCN)  and
    // MnUserParameters MnUserCovariance objects
 
@@ -104,7 +104,7 @@ FunctionMinimum ModularFunctionMinimizer::Minimize(const FCNGradientBase& fcn, c
 
 
 
-FunctionMinimum ModularFunctionMinimizer::Minimize(const FCNBase& fcn, const MnUserParameterState& st, const MnStrategy& strategy, unsigned int maxfcn, double toler) const {
+auto ModularFunctionMinimizer::Minimize(const FCNBase& fcn, const MnUserParameterState& st, const MnStrategy& strategy, unsigned int maxfcn, double toler) const -> FunctionMinimum {
    // minimize from a FCNBase and a MnUserparameterState - interface used by all the previous ones
    // based on FCNBase. Create in this case a NumericalGradient calculator
    // Create the minuit FCN wrapper (MnUserFcn) containing the trasformation (int<->ext)
@@ -122,7 +122,7 @@ FunctionMinimum ModularFunctionMinimizer::Minimize(const FCNBase& fcn, const MnU
 
 
 // use Gradient here
-FunctionMinimum ModularFunctionMinimizer::Minimize(const FCNGradientBase& fcn, const MnUserParameterState& st, const MnStrategy& strategy, unsigned int maxfcn, double toler) const {
+auto ModularFunctionMinimizer::Minimize(const FCNGradientBase& fcn, const MnUserParameterState& st, const MnStrategy& strategy, unsigned int maxfcn, double toler) const -> FunctionMinimum {
    // minimize from a FCNGradientBase and a MnUserparameterState - interface used by all the previous ones
    // based on FCNGradientBase.
    // Create in this acase an AnalyticalGradient calculator
@@ -140,7 +140,7 @@ FunctionMinimum ModularFunctionMinimizer::Minimize(const FCNGradientBase& fcn, c
 }
 
 
-FunctionMinimum ModularFunctionMinimizer::Minimize(const MnFcn& mfcn, const GradientCalculator& gc, const MinimumSeed& seed, const MnStrategy& strategy, unsigned int maxfcn, double toler) const {
+auto ModularFunctionMinimizer::Minimize(const MnFcn& mfcn, const GradientCalculator& gc, const MinimumSeed& seed, const MnStrategy& strategy, unsigned int maxfcn, double toler) const -> FunctionMinimum {
    // Interface used by all the others for the minimization using the base MinimumBuilder class
    // According to the contained type of MinimumBuilder the right type will be used
 

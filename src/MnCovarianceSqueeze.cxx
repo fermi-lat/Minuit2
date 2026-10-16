@@ -21,7 +21,7 @@ namespace ROOT {
    namespace Minuit2 {
 
 
-MnUserCovariance MnCovarianceSqueeze::operator()(const MnUserCovariance& cov, unsigned int n) const {
+auto MnCovarianceSqueeze::operator()(const MnUserCovariance& cov, unsigned int n) const -> MnUserCovariance {
    // squeeze MnUserCovariance class
    // MnUserCovariance contasins the error matrix. Need to invert first to get the hessian, then
    // after having squuezed the hessian, need to invert again to get the new error matrix
@@ -67,7 +67,7 @@ MnUserCovariance MnCovarianceSqueeze::operator()(const MnUserCovariance& cov, un
    return MnUserCovariance(std::vector<double>(squeezed.Data(), squeezed.Data() + squeezed.size()), squeezed.Nrow());
 }
 
-MinimumError MnCovarianceSqueeze::operator()(const MinimumError& err, unsigned int n) const {
+auto MnCovarianceSqueeze::operator()(const MinimumError& err, unsigned int n) const -> MinimumError {
    // squueze the minimum error class
    // Remove index-row on the Hessian matrix and the get the new correct error matrix
    // (inverse of new Hessian)
@@ -88,7 +88,7 @@ MinimumError MnCovarianceSqueeze::operator()(const MinimumError& err, unsigned i
    return MinimumError(squeezed, err.Dcovar());
 }
 
-MnAlgebraicSymMatrix MnCovarianceSqueeze::operator()(const MnAlgebraicSymMatrix& hess, unsigned int n) const {
+auto MnCovarianceSqueeze::operator()(const MnAlgebraicSymMatrix& hess, unsigned int n) const -> MnAlgebraicSymMatrix {
    // squueze a symmetrix matrix (remove entire row and column n)
    assert(hess.Nrow() > 0);
    assert(n < hess.Nrow());

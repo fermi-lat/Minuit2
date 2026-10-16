@@ -46,7 +46,7 @@ namespace ROOT {
     - add a falg to control the debug
 */
 
-MnParabolaPoint MnLineSearch::operator()(const MnFcn& fcn, const MinimumParameters& st, const MnAlgebraicVector& step, double gdel, const MnMachinePrecision& prec, bool debug) const {
+auto MnLineSearch::operator()(const MnFcn& fcn, const MinimumParameters& st, const MnAlgebraicVector& step, double gdel, const MnMachinePrecision& prec, bool debug) const -> MnParabolaPoint {
 
    //*-*-*-*-*-*-*-*-*-*Perform a line search from position st along step   *-*-*-*-*-*-*-*
    //*-*                =========================================

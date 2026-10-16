@@ -33,7 +33,7 @@ namespace ROOT {
 // for Fumili implement Minimize here because need downcast
 
 
-FunctionMinimum FumiliMinimizer::Minimize(const FCNBase& fcn, const MnUserParameterState& st, const MnStrategy& strategy, unsigned int maxfcn, double toler) const {
+auto FumiliMinimizer::Minimize(const FCNBase& fcn, const MnUserParameterState& st, const MnStrategy& strategy, unsigned int maxfcn, double toler) const -> FunctionMinimum {
    // Minimize using Fumili. Create seed and Fumili gradient calculator.
    // The FCNBase passed must be a FumiliFCNBase type otherwise method will fail !
 
@@ -67,7 +67,7 @@ FunctionMinimum FumiliMinimizer::Minimize(const FCNBase& fcn, const MnUserParame
 
 
 
-FunctionMinimum FumiliMinimizer::Minimize(const FCNGradientBase& fcn, const MnUserParameterState& st, const MnStrategy& strategy, unsigned int maxfcn, double toler) const {
+auto FumiliMinimizer::Minimize(const FCNGradientBase& fcn, const MnUserParameterState& st, const MnStrategy& strategy, unsigned int maxfcn, double toler) const -> FunctionMinimum {
    // Minimize using Fumili. Case of interface is a FCNGradientBase.
    // Normally other method is used  - probably this could be removed (t.b.i.)
 

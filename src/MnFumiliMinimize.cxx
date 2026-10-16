@@ -19,7 +19,7 @@ namespace ROOT {
 
 
 
-FunctionMinimum MnFumiliMinimize::operator()(unsigned int maxfcn, double toler) {
+auto MnFumiliMinimize::operator()(unsigned int maxfcn, double toler) -> FunctionMinimum {
    // minimize using Fumili
    // need to reimplement otherwise base class method is done
 

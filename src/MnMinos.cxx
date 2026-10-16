@@ -55,13 +55,13 @@ MnMinos::MnMinos(const FCNBase& fcn, const FunctionMinimum& min,  const MnStrate
 }
 
 
-std::pair<double,double> MnMinos::operator()(unsigned int par, unsigned int maxcalls, double toler) const {
+auto MnMinos::operator()(unsigned int par, unsigned int maxcalls, double toler) const -> std::pair<double,double> {
    // do Minos analysis given the parameter index returning a pair for (lower,upper) errors
    MinosError mnerr = Minos(par, maxcalls,toler);
    return mnerr();
 }
 
-double MnMinos::Lower(unsigned int par, unsigned int maxcalls, double toler) const {
+auto MnMinos::Lower(unsigned int par, unsigned int maxcalls, double toler) const -> double {
    // get lower error for parameter par
 
    MnCross aopt = Loval(par, maxcalls,toler);
@@ -71,7 +71,7 @@ double MnMinos::Lower(unsigned int par, unsigned int maxcalls, double toler) con
    return mnerr.Lower();
 }
 
-double MnMinos::Upper(unsigned int par, unsigned int maxcalls, double toler) const {
+auto MnMinos::Upper(unsigned int par, unsigned int maxcalls, double toler) const -> double {
    // upper error for parameter par
 
    MnCross aopt = Upval(par, maxcalls,toler);
@@ -81,7 +81,7 @@ double MnMinos::Upper(unsigned int par, unsigned int maxcalls, double toler) con
    return mnerr.Upper();
 }
 
-MinosError MnMinos::Minos(unsigned int par, unsigned int maxcalls, double toler) const {
+auto MnMinos::Minos(unsigned int par, unsigned int maxcalls, double toler) const -> MinosError {
    // do full minos error anlysis (lower + upper) for parameter par
 
    MnCross up = Upval(par, maxcalls,toler);
@@ -101,7 +101,7 @@ MinosError MnMinos::Minos(unsigned int par, unsigned int maxcalls, double toler)
 }
 
 
-MnCross MnMinos::FindCrossValue(int direction, unsigned int par, unsigned int maxcalls, double toler) const {
+auto MnMinos::FindCrossValue(int direction, unsigned int par, unsigned int maxcalls, double toler) const -> MnCross {
    // get crossing value in the parameter direction :
    // direction = + 1 upper value
    // direction = -1 lower value
@@ -224,12 +224,12 @@ MnCross MnMinos::FindCrossValue(int direction, unsigned int par, unsigned int ma
    return aopt;
 }
 
-MnCross MnMinos::Upval(unsigned int par, unsigned int maxcalls, double toler) const {
+auto MnMinos::Upval(unsigned int par, unsigned int maxcalls, double toler) const -> MnCross {
    // return crossing in the lower parameter direction
    return FindCrossValue(1,par,maxcalls,toler);
 }
 
-MnCross MnMinos::Loval(unsigned int par, unsigned int maxcalls, double toler) const {
+auto MnMinos::Loval(unsigned int par, unsigned int maxcalls, double toler) const -> MnCross {
    // return crossing in the lower parameter direction
    return FindCrossValue(-1,par,maxcalls,toler);
 }

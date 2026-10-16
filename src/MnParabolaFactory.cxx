@@ -18,9 +18,9 @@ namespace ROOT {
 
 // #include <iostream>
 
-MnParabola MnParabolaFactory::operator()(const MnParabolaPoint& p1,
+auto MnParabolaFactory::operator()(const MnParabolaPoint& p1,
                                          const MnParabolaPoint& p2,
-                                         const MnParabolaPoint& p3) const {
+                                         const MnParabolaPoint& p3) const -> MnParabola {
    // construct the parabola from 3 points p1,p2,p3
    double x1 = p1.X();
    double x2 = p2.X();
@@ -52,9 +52,9 @@ MnParabola MnParabolaFactory::operator()(const MnParabolaPoint& p1,
    return MnParabola(a, b, c);
 }
 
-MnParabola MnParabolaFactory::operator()(const MnParabolaPoint& p1,
+auto MnParabolaFactory::operator()(const MnParabolaPoint& p1,
                                          double dxdy1,
-                                         const MnParabolaPoint& p2) const {
+                                         const MnParabolaPoint& p2) const -> MnParabola {
    // construct the parabola from 2 points + derivative at first point dxdy1
    double x1 = p1.X();
    double xx1 = x1*x1;

@@ -37,7 +37,7 @@ namespace ROOT {
    namespace Minuit2 {
 
 
-double inner_product(const LAVector&, const LAVector&);
+auto inner_product(const LAVector&, const LAVector&) -> double;
 
 
 void VariableMetricBuilder::AddResult( std::vector<MinimumState>& result, const MinimumState & state) const {
@@ -57,7 +57,7 @@ void VariableMetricBuilder::AddResult( std::vector<MinimumState>& result, const 
 }
 
 
-FunctionMinimum VariableMetricBuilder::Minimum(const MnFcn& fcn, const GradientCalculator& gc, const MinimumSeed& seed, const MnStrategy& strategy, unsigned int maxfcn, double edmval) const {
+auto VariableMetricBuilder::Minimum(const MnFcn& fcn, const GradientCalculator& gc, const MinimumSeed& seed, const MnStrategy& strategy, unsigned int maxfcn, double edmval) const -> FunctionMinimum {
    // top level function to find minimum from a given initial seed
    // iterate on a minimum search in case of first attempt is not successful
 
@@ -232,7 +232,7 @@ FunctionMinimum VariableMetricBuilder::Minimum(const MnFcn& fcn, const GradientC
    return min;
 }
 
-FunctionMinimum VariableMetricBuilder::Minimum(const MnFcn& fcn, const GradientCalculator& gc, const MinimumSeed& seed, std::vector<MinimumState>& result, unsigned int maxfcn, double edmval) const {
+auto VariableMetricBuilder::Minimum(const MnFcn& fcn, const GradientCalculator& gc, const MinimumSeed& seed, std::vector<MinimumState>& result, unsigned int maxfcn, double edmval) const -> FunctionMinimum {
    // function performing the minimum searches using the Variable Metric  algorithm (MIGRAD)
    // perform first a line search in the - Vg direction and then update using the Davidon formula (Davidon Error updator)
    // stop when edm reached is less than required (edmval)

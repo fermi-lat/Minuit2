@@ -15,7 +15,7 @@
 #include "Minuit2/FunctionGradient.h"
 #include "Minuit2/MnStrategy.h"
 
-#include <math.h>
+#include <cmath>
 
 //#define DEBUG
 
@@ -30,7 +30,7 @@ namespace ROOT {
    namespace Minuit2 {
 
 
-FunctionGradient InitialGradientCalculator::operator()(const MinimumParameters& par) const {
+auto InitialGradientCalculator::operator()(const MinimumParameters& par) const -> FunctionGradient {
    // initial rough  estimate of the gradient using the parameter step size
 
    assert(par.IsValid());
@@ -89,27 +89,27 @@ FunctionGradient InitialGradientCalculator::operator()(const MinimumParameters& 
    return FunctionGradient(gr, gr2, gst);
 }
 
-FunctionGradient InitialGradientCalculator::operator()(const MinimumParameters& par, const FunctionGradient&) const {
+auto InitialGradientCalculator::operator()(const MinimumParameters& par, const FunctionGradient&) const -> FunctionGradient {
    // Base class interface
    return (*this)(par);
 }
 
-const MnMachinePrecision& InitialGradientCalculator::Precision() const {
+auto InitialGradientCalculator::Precision() const -> const MnMachinePrecision& {
    // return precision (is set in trasformation class)
    return fTransformation.Precision();
 }
 
-unsigned int InitialGradientCalculator::Ncycle() const {
+auto InitialGradientCalculator::Ncycle() const -> unsigned int {
    // return ncyles (from Strategy)
    return Strategy().GradientNCycles();
 }
 
-double InitialGradientCalculator::StepTolerance() const {
+auto InitialGradientCalculator::StepTolerance() const -> double {
    // return Gradient step tolerance (from Strategy)
    return Strategy().GradientStepTolerance();
 }
 
-double InitialGradientCalculator::GradTolerance() const {
+auto InitialGradientCalculator::GradTolerance() const -> double {
    // return Gradient tolerance
    return Strategy().GradientTolerance();
 }

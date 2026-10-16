@@ -39,7 +39,7 @@
 
 
 
-#include <math.h>
+#include <cmath>
 
 
 namespace ROOT {
@@ -47,7 +47,7 @@ namespace ROOT {
    namespace Minuit2 {
 
 
-MinimumSeed MnSeedGenerator::operator()(const MnFcn& fcn, const GradientCalculator& gc, const MnUserParameterState& st, const MnStrategy& stra) const {
+auto MnSeedGenerator::operator()(const MnFcn& fcn, const GradientCalculator& gc, const MnUserParameterState& st, const MnStrategy& stra) const -> MinimumSeed {
 
 
    // find seed (initial minimization point) using the calculated gradient
@@ -126,7 +126,7 @@ MinimumSeed MnSeedGenerator::operator()(const MnFcn& fcn, const GradientCalculat
 }
 
 
-MinimumSeed MnSeedGenerator::operator()(const MnFcn& fcn, const AnalyticalGradientCalculator& gc, const MnUserParameterState& st, const MnStrategy& stra) const {
+auto MnSeedGenerator::operator()(const MnFcn& fcn, const AnalyticalGradientCalculator& gc, const MnUserParameterState& st, const MnStrategy& stra) const -> MinimumSeed {
    // find seed (initial point for minimization) using analytical gradient
    unsigned int n = st.VariableParameters();
    const MnMachinePrecision& prec = st.Precision();

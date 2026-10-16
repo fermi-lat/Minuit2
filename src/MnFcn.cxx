@@ -20,7 +20,7 @@ MnFcn::~MnFcn() {
    //   std::cout<<"Total number of calls to FCN: "<<fNumCall<<std::endl;
 }
 
-double MnFcn::operator()(const MnAlgebraicVector& v) const {
+auto MnFcn::operator()(const MnAlgebraicVector& v) const -> double {
    // evaluate FCN converting from from MnAlgebraicVector to std::vector
    fNumCall++;
    return fFCN(MnVectorTransform()(v));
@@ -30,9 +30,9 @@ double MnFcn::operator()(const MnAlgebraicVector& v) const {
 //     return fFCN(par);
 // }
 
-double MnFcn::ErrorDef() const {return fFCN.Up();}
+auto MnFcn::ErrorDef() const -> double {return fFCN.Up();}
 
-double MnFcn::Up() const {return fFCN.Up();}
+auto MnFcn::Up() const -> double {return fFCN.Up();}
 
    }  // namespace Minuit2
 

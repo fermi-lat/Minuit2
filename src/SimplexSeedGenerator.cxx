@@ -20,7 +20,7 @@ namespace ROOT {
    namespace Minuit2 {
 
 
-MinimumSeed SimplexSeedGenerator::operator()(const MnFcn& fcn, const GradientCalculator&, const MnUserParameterState& st, const MnStrategy& stra) const {
+auto SimplexSeedGenerator::operator()(const MnFcn& fcn, const GradientCalculator&, const MnUserParameterState& st, const MnStrategy& stra) const -> MinimumSeed {
    // create starting state for Simplex, which corresponds to the initial parameter values
    // using the simple Initial gradient calculator (does not use any FCN function calls)
    unsigned int n = st.VariableParameters();
@@ -44,7 +44,7 @@ MinimumSeed SimplexSeedGenerator::operator()(const MnFcn& fcn, const GradientCal
    return MinimumSeed(state, st.Trafo());
 }
 
-MinimumSeed SimplexSeedGenerator::operator()(const MnFcn& fcn, const AnalyticalGradientCalculator& gc, const MnUserParameterState& st, const MnStrategy& stra) const {
+auto SimplexSeedGenerator::operator()(const MnFcn& fcn, const AnalyticalGradientCalculator& gc, const MnUserParameterState& st, const MnStrategy& stra) const -> MinimumSeed {
    // base class interface
    return (*this)(fcn, (const GradientCalculator&)(gc), st, stra);
 }

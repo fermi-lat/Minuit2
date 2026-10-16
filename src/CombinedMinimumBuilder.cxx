@@ -21,7 +21,7 @@ namespace ROOT {
    namespace Minuit2 {
 
 
-FunctionMinimum CombinedMinimumBuilder::Minimum(const MnFcn& fcn, const GradientCalculator& gc, const MinimumSeed& seed, const MnStrategy& strategy, unsigned int maxfcn, double edmval) const {
+auto CombinedMinimumBuilder::Minimum(const MnFcn& fcn, const GradientCalculator& gc, const MinimumSeed& seed, const MnStrategy& strategy, unsigned int maxfcn, double edmval) const -> FunctionMinimum {
    // find minimum using combined method
    // (Migrad then if fails try Simplex and then Migrad again)
 

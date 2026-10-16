@@ -23,16 +23,16 @@ namespace ROOT {
    namespace Minuit2 {
 
 
-LAVector eigenvalues(const LASymMatrix&);
+auto eigenvalues(const LASymMatrix&) -> LAVector;
 
 
-MinimumState MnPosDef::operator()(const MinimumState& st, const MnMachinePrecision& prec) const {
+auto MnPosDef::operator()(const MinimumState& st, const MnMachinePrecision& prec) const -> MinimumState {
    // interface from minimum state
    MinimumError err = (*this)(st.Error(), prec);
    return MinimumState(st.Parameters(), err, st.Gradient(), st.Edm(), st.NFcn());
 }
 
-MinimumError MnPosDef::operator()(const MinimumError& e, const MnMachinePrecision& prec) const {
+auto MnPosDef::operator()(const MinimumError& e, const MnMachinePrecision& prec) const -> MinimumError {
    // make error matrix positive defined returning a new corrected minimum error state
 
    MnAlgebraicSymMatrix err(e.InvHessian());

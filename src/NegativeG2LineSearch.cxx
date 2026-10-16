@@ -29,7 +29,7 @@ namespace ROOT {
 
 
 
-MinimumState NegativeG2LineSearch::operator()(const MnFcn& fcn, const MinimumState& st, const  GradientCalculator& gc, const MnMachinePrecision& prec) const {
+auto NegativeG2LineSearch::operator()(const MnFcn& fcn, const MinimumState& st, const  GradientCalculator& gc, const MnMachinePrecision& prec) const -> MinimumState {
 
 //   when the second derivatives are negative perform a  line search  along Parameter which gives
 //   negative second derivative and magnitude  equal to the Gradient step size.
@@ -116,7 +116,7 @@ MinimumState NegativeG2LineSearch::operator()(const MnFcn& fcn, const MinimumSta
    return MinimumState(pa, err, dgrad, edm, fcn.NumOfCalls());
 }
 
-bool NegativeG2LineSearch::HasNegativeG2(const FunctionGradient& grad, const MnMachinePrecision& /*prec */ ) const {
+auto NegativeG2LineSearch::HasNegativeG2(const FunctionGradient& grad, const MnMachinePrecision& /*prec */ ) const -> bool {
    // check if function gradient has any component which is neegative
 
    for(unsigned int i = 0; i < grad.Vec().size(); i++)

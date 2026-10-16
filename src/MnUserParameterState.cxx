@@ -157,7 +157,7 @@ MnUserParameterState::MnUserParameterState(const MinimumState& st, double up, co
 
 }
 
-MnUserCovariance MnUserParameterState::Hessian() const {
+auto MnUserParameterState::Hessian() const -> MnUserCovariance {
    // invert covariance matrix and return Hessian
    // need to copy in a MnSymMatrix
    MnAlgebraicSymMatrix mat(fCovariance.Nrow() );
@@ -182,21 +182,21 @@ MnUserCovariance MnUserParameterState::Hessian() const {
 // via MnUserParameterState
 
 
-const std::vector<MinuitParameter>& MnUserParameterState::MinuitParameters() const {
+auto MnUserParameterState::MinuitParameters() const -> const std::vector<MinuitParameter>& {
    //access to parameters (row-wise)
    return fParameters.Parameters();
 }
 
-std::vector<double> MnUserParameterState::Params() const {
+auto MnUserParameterState::Params() const -> std::vector<double> {
    //access to parameters in column-wise representation
    return fParameters.Params();
 }
-std::vector<double> MnUserParameterState::Errors() const {
+auto MnUserParameterState::Errors() const -> std::vector<double> {
    //access to errors in column-wise representation
    return fParameters.Errors();
 }
 
-const MinuitParameter& MnUserParameterState::Parameter(unsigned int i) const {
+auto MnUserParameterState::Parameter(unsigned int i) const -> const MinuitParameter& {
    //access to single Parameter i
    return fParameters.Parameter(i);
 }
@@ -358,11 +358,11 @@ void MnUserParameterState::RemoveLimits(unsigned int e) {
       fIntParameters[IntOfExt(e)] = Value(e);
 }
 
-double MnUserParameterState::Value(unsigned int i) const {
+auto MnUserParameterState::Value(unsigned int i) const -> double {
    // get value for parameter e (external index)
    return fParameters.Value(i);
 }
-double MnUserParameterState::Error(unsigned int i) const {
+auto MnUserParameterState::Error(unsigned int i) const -> double {
    // get error for parameter e (external index)
    return fParameters.Error(i);
 }
@@ -385,48 +385,48 @@ void MnUserParameterState::SetLowerLimit(const std::string & name, double low) {
 
 void MnUserParameterState::RemoveLimits(const std::string & name) {RemoveLimits(Index(name));}
 
-double MnUserParameterState::Value(const std::string & name) const {return Value(Index(name));}
+auto MnUserParameterState::Value(const std::string & name) const -> double {return Value(Index(name));}
 
-double MnUserParameterState::Error(const std::string & name) const {return Error(Index(name));}
+auto MnUserParameterState::Error(const std::string & name) const -> double {return Error(Index(name));}
 
 
-unsigned int MnUserParameterState::Index(const std::string & name) const {
+auto MnUserParameterState::Index(const std::string & name) const -> unsigned int {
    //convert name into external number of Parameter
    return fParameters.Index(name);
 }
 
-const char* MnUserParameterState::Name(unsigned int i) const {
+auto MnUserParameterState::Name(unsigned int i) const -> const char* {
    //convert external number into name of Parameter (API returing a const char *)
    return fParameters.Name(i);
 }
-const std::string & MnUserParameterState::GetName(unsigned int i) const {
+auto MnUserParameterState::GetName(unsigned int i) const -> const std::string & {
    //convert external number into name of Parameter (new interface returning a string)
    return fParameters.GetName(i);
 }
 
 // transformation internal <-> external (forward to transformation class)
 
-double MnUserParameterState::Int2ext(unsigned int i, double val) const {
+auto MnUserParameterState::Int2ext(unsigned int i, double val) const -> double {
    // internal to external value
    return fParameters.Trafo().Int2ext(i, val);
 }
-double MnUserParameterState::Ext2int(unsigned int e, double val) const {
+auto MnUserParameterState::Ext2int(unsigned int e, double val) const -> double {
     // external  to internal value
    return fParameters.Trafo().Ext2int(e, val);
 }
-unsigned int MnUserParameterState::IntOfExt(unsigned int ext) const {
+auto MnUserParameterState::IntOfExt(unsigned int ext) const -> unsigned int {
    // return internal index for external index ext
    return fParameters.Trafo().IntOfExt(ext);
 }
-unsigned int MnUserParameterState::ExtOfInt(unsigned int internal) const {
+auto MnUserParameterState::ExtOfInt(unsigned int internal) const -> unsigned int {
     // return external index for internal index internal
    return fParameters.Trafo().ExtOfInt(internal);
 }
-unsigned int MnUserParameterState::VariableParameters() const {
+auto MnUserParameterState::VariableParameters() const -> unsigned int {
    // return number of variable parameters
    return fParameters.Trafo().VariableParameters();
 }
-const MnMachinePrecision& MnUserParameterState::Precision() const {
+auto MnUserParameterState::Precision() const -> const MnMachinePrecision& {
    // return global parameter precision
    return fParameters.Precision();
 }
