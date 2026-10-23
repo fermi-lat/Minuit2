@@ -85,6 +85,12 @@ The Minuit2 internals are covered by the upstream docs. The Fermi call path
   and `FermiMinuit2Targets.cmake` (namespace `FermiMinuit2::`).
 - **Applications, Python, file formats:** none.
 
+### Environment variables
+
+None. No source in `src/` or `inc/` calls `getenv`. For the variables set
+by conda activation see "Runtime environment" in ScienceTools'
+`docs/architecture/README.md`.
+
 ## Build and test
 
 - **Integration.** `Minuit2` is listed in `FERMI_COMPONENTS` in the top-level
@@ -107,9 +113,15 @@ The Minuit2 internals are covered by the upstream docs. The Fermi call path
   source tree. Here every file is already present, so nothing is copied.
 - **Tests.** None run. `StandAlone.cmake` never adds `test/` or `examples/`.
   `test/CMakeLists.txt` uses ROOT macros (`ROOT_EXECUTABLE`,
-  `ROOT_ADD_TEST`) and needs `find_package(ROOT)`. Minuit2 is exercised
-  only indirectly, by `test_optimizers` (`optimizers/src/test/main.cxx`)
-  and the Likelihood tests.
+  `ROOT_ADD_TEST`) and needs `find_package(ROOT)`. The project harness
+  `recipe/tests/ST-unit-test` (see "Testing" in ScienceTools'
+  `docs/architecture/README.md`) runs no Minuit2
+  program, and no Minuit2 reference data exists anywhere. Indirect coverage
+  is thin: `test_optimizers` (`optimizers/src/test/main.cxx`) exercises
+  `NewMinuit`, but it is commented out of `ST-unit-test`.
+  `test_Likelihood`, which is run, uses `NewMinuit` only when built with
+  `DARWIN_F2C_FAILURE` (macOS, `Likelihood/CMakeLists.txt`); on Linux it
+  uses the f2c `Minuit`, so the default Linux run never calls Minuit2.
 
 ## Invariants and gotchas
 
