@@ -58,8 +58,8 @@ auto FumiliErrorUpdator::Update(const MinimumState& s0,
    // as suggester in Numerical Receipt for Marquard method
 
    // need to downcast to FumiliGradientCalculator
-   FumiliGradientCalculator * fgc = dynamic_cast< FumiliGradientCalculator *>( const_cast<GradientCalculator *>(&gc) );
-   assert(fgc != 0);
+   auto * fgc = dynamic_cast< FumiliGradientCalculator *>( const_cast<GradientCalculator *>(&gc) );
+   assert(fgc != nullptr);
 
 
    // get Hessian from Gradient calculator

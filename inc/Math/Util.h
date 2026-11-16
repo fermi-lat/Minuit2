@@ -146,8 +146,8 @@ namespace ROOT {
        /// \param[in] end   End of the range.
        template <class Iterator>
        void Add(Iterator begin, Iterator end) {
-           static_assert(std::is_floating_point<
-               typename std::remove_reference<decltype(*begin)>::type>::value,
+           static_assert(std::is_floating_point_v<
+               std::remove_reference_t<decltype(*begin)>>,
                "Iterator needs to point to floating-point values.");
            const std::size_t n = std::distance(begin, end);
 
@@ -161,7 +161,7 @@ namespace ROOT {
        /// \param[in] inputs Container with index access such as std::vector or array.
        template<class Container_t>
        void Add(const Container_t& inputs) {
-         static_assert(std::is_floating_point<typename Container_t::value_type>::value,
+         static_assert(std::is_floating_point_v<typename Container_t::value_type>,
              "Container does not hold floating-point values.");
          for (std::size_t i=0; i < inputs.size(); ++i) {
            AddIndexed(inputs[i], i);

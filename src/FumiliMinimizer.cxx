@@ -51,7 +51,7 @@ auto FumiliMinimizer::Minimize(const FCNBase& fcn, const MnUserParameterState& s
 
    //std::cout << "FCN type " << typeid(&fcn).Name() << std::endl;
 
-   FumiliFCNBase * fumiliFcn = dynamic_cast< FumiliFCNBase *>( const_cast<FCNBase *>(&fcn) );
+   auto * fumiliFcn = dynamic_cast< FumiliFCNBase *>( const_cast<FCNBase *>(&fcn) );
    if ( !fumiliFcn ) {
       MN_ERROR_MSG("FumiliMinimizer: Error : wrong FCN type. Try to use default minimizer");
       return  FunctionMinimum(mnseeds, fcn.Up() );
@@ -82,7 +82,7 @@ auto FumiliMinimizer::Minimize(const FCNGradientBase& fcn, const MnUserParameter
 
    // downcast fcn
 
-   FumiliFCNBase * fumiliFcn = dynamic_cast< FumiliFCNBase *>( const_cast<FCNGradientBase *>(&fcn) );
+   auto * fumiliFcn = dynamic_cast< FumiliFCNBase *>( const_cast<FCNGradientBase *>(&fcn) );
    if ( !fumiliFcn ) {
       MN_ERROR_MSG("FumiliMinimizer: Error : wrong FCN type. Try to use default minimizer");
       return  FunctionMinimum(mnseeds, fcn.Up() );

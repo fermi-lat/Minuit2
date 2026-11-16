@@ -18,7 +18,7 @@ namespace ROOT {
       MinimumBuilder::MinimumBuilder() :
          fPrintLevel(MnPrint::Level()),
          fStorageLevel(1),
-         fTracer(0)
+         fTracer(nullptr)
       {}
 
       MinimumBuilder::BuilderPrintLevelConf::BuilderPrintLevelConf(int printLevel)

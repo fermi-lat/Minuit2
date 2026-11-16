@@ -47,7 +47,7 @@ auto FumiliGradientCalculator::operator()(const MinimumParameters& par) const ->
    //   }
 
    // eval Gradient
-   FumiliFCNBase & fcn = const_cast<FumiliFCNBase &>(fFcn);
+   auto & fcn = const_cast<FumiliFCNBase &>(fFcn);
 
    fcn.EvaluateAll(extParam);
 

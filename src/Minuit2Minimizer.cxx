@@ -81,9 +81,9 @@ void RestoreGlobalPrintLevel(int value) {
 Minuit2Minimizer::Minuit2Minimizer(ROOT::Minuit2::EMinimizerType type ) :
    Minimizer(),
    fDim(0),
-   fMinimizer(0),
-   fMinuitFCN(0),
-   fMinimum(0)
+   fMinimizer(nullptr),
+   fMinuitFCN(nullptr),
+   fMinimum(nullptr)
 {
    // Default constructor implementation depending on minimizer type
    SetMinimizerType(type);
@@ -92,9 +92,9 @@ Minuit2Minimizer::Minuit2Minimizer(ROOT::Minuit2::EMinimizerType type ) :
 Minuit2Minimizer::Minuit2Minimizer(const char *  type ) :
    Minimizer(),
    fDim(0),
-   fMinimizer(0),
-   fMinuitFCN(0),
-   fMinimum(0)
+   fMinimizer(nullptr),
+   fMinuitFCN(nullptr),
+   fMinimum(nullptr)
 {
    // constructor from a string
 
@@ -173,7 +173,7 @@ void Minuit2Minimizer::Clear() {
    fState = MnUserParameterState();
    // clear also the function minimum
    if (fMinimum) delete fMinimum;
-   fMinimum = 0;
+   fMinimum = nullptr;
 }
 
 
@@ -360,7 +360,7 @@ void Minuit2Minimizer::SetFunction(const  ROOT::Math::IMultiGenFunction & func) 
    }
    else {
       // for Fumili the fit method function interface is required
-      const ROOT::Math::FitMethodFunction * fcnfunc = dynamic_cast<const ROOT::Math::FitMethodFunction *>(&func);
+      const auto * fcnfunc = dynamic_cast<const ROOT::Math::FitMethodFunction *>(&func);
       if (!fcnfunc) {
          MN_ERROR_MSG("Minuit2Minimizer: Wrong Fit method function for Fumili");
          return;
@@ -378,7 +378,7 @@ void Minuit2Minimizer::SetFunction(const  ROOT::Math::IMultiGradFunction & func)
    }
    else {
       // for Fumili the fit method function interface is required
-      const ROOT::Math::FitMethodGradFunction * fcnfunc = dynamic_cast<const ROOT::Math::FitMethodGradFunction*>(&func);
+      const auto * fcnfunc = dynamic_cast<const ROOT::Math::FitMethodGradFunction*>(&func);
       if (!fcnfunc) {
          MN_ERROR_MSG("Minuit2Minimizer: Wrong Fit method function for Fumili");
          return;
@@ -395,11 +395,11 @@ auto Minuit2Minimizer::Minimize() -> bool {
       return false;
   }
 
-   assert(GetMinimizer() != 0 );
+   assert(GetMinimizer() != nullptr );
 
    // delete result of previous minimization
    if (fMinimum) delete fMinimum;
-   fMinimum = 0;
+   fMinimum = nullptr;
 
 
    int maxfcn = MaxFunctionCalls();
@@ -476,7 +476,7 @@ auto Minuit2Minimizer::Minimize() -> bool {
 
    // set a minimizer tracer object (default for printlevel=10, from gROOT for printLevel=11)
    // use some special print levels
-   MnTraceObject * traceObj = 0;
+   MnTraceObject * traceObj = nullptr;
 #ifdef USE_ROOT_ERROR
    if (printLevel == 10 && gROOT) {
       TObject * obj = gROOT->FindObject("Minuit2TraceObject");
@@ -503,8 +503,8 @@ auto Minuit2Minimizer::Minimize() -> bool {
       SetTraceObject(*traceObj);
    }
 
-   const ROOT::Minuit2::FCNGradientBase * gradFCN = dynamic_cast<const ROOT::Minuit2::FCNGradientBase *>( fMinuitFCN );
-   if ( gradFCN != 0) {
+   const auto * gradFCN = dynamic_cast<const ROOT::Minuit2::FCNGradientBase *>( fMinuitFCN );
+   if ( gradFCN != nullptr) {
       // use gradient
       //SetPrintLevel(3);
       ROOT::Minuit2::FunctionMinimum min =  GetMinimizer()->Minimize(*gradFCN, fState, strategy, maxfcn, tol);
@@ -653,7 +653,7 @@ void Minuit2Minimizer::PrintResults() {
 auto Minuit2Minimizer::Errors() const -> const double * {
    // return error at minimum (set to zero for fixed and constant params)
    const std::vector<MinuitParameter> & paramsObj = fState.MinuitParameters();
-   if (paramsObj.size() == 0) return 0;
+   if (paramsObj.size() == 0) return nullptr;
    assert(fDim == paramsObj.size());
    // be careful for multiple calls of this function. I will redo an allocation here
    // only when size of vectors has changed (e.g. after a new minimization)
@@ -786,7 +786,7 @@ auto Minuit2Minimizer::GetMinosError(unsigned int i, double & errLow, double & e
 //    ROOT::Minuit2::FunctionMinimum min =
 //       GetMinimizer()->Minimize(*GetFCN(),fState, ROOT::Minuit2::MnStrategy(strategy), MaxFunctionCalls(), Tolerance());
 //    fState = min.UserState();
-   if (fMinimum == 0) {
+   if (fMinimum == nullptr) {
       MN_ERROR_MSG("Minuit2Minimizer::GetMinosErrors:  failed - no function minimum existing");
       return false;
    }
@@ -1059,7 +1059,7 @@ auto Minuit2Minimizer::Scan(unsigned int ipar, unsigned int & nstep, double * x,
 auto Minuit2Minimizer::Contour(unsigned int ipar, unsigned int jpar, unsigned int & npoints, double * x, double * y) -> bool {
    // contour plot for parameter i and j
    // need a valid FunctionMinimum otherwise exits
-   if (fMinimum == 0) {
+   if (fMinimum == nullptr) {
       MN_ERROR_MSG2("Minuit2Minimizer::Contour"," no function minimum existing. Must minimize function before");
       return false;
    }

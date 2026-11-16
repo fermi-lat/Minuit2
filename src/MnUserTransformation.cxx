@@ -27,7 +27,7 @@ public:
 
    MnParStr(const std::string & name) : fName(name) {}
 
-   ~MnParStr() {}
+   ~MnParStr() = default;
 
    auto operator()(const MinuitParameter& par) const -> bool {
 //      return (strcmp(par.Name(), fName) == 0);
@@ -215,7 +215,7 @@ auto MnUserTransformation::IntOfExt(unsigned int ext) const -> unsigned int {
    assert(ext < fParameters.size());
    assert(!fParameters[ext].IsFixed());
    assert(!fParameters[ext].IsConst());
-   std::vector<unsigned int>::const_iterator iind = std::find(fExtOfInt.begin(), fExtOfInt.end(), ext);
+   auto iind = std::find(fExtOfInt.begin(), fExtOfInt.end(), ext);
    assert(iind != fExtOfInt.end());
 
    return (iind - fExtOfInt.begin());
@@ -234,7 +234,7 @@ auto MnUserTransformation::Params() const -> std::vector<double> {
 auto MnUserTransformation::Errors() const -> std::vector<double> {
    // return std::vector of double with parameter errors
    std::vector<double> result; result.reserve(fParameters.size());
-   for(std::vector<MinuitParameter>::const_iterator ipar = Parameters().begin();
+   for(auto ipar = Parameters().begin();
        ipar != Parameters().end(); ++ipar)
       result.push_back((*ipar).Error());
 
@@ -297,7 +297,7 @@ auto MnUserTransformation::Add(const std::string & name, double val) -> bool {
 void MnUserTransformation::Fix(unsigned int n) {
   // fix parameter n (external index)
    assert(n < fParameters.size());
-   std::vector<unsigned int>::iterator iind = std::find(fExtOfInt.begin(), fExtOfInt.end(), n);
+   auto iind = std::find(fExtOfInt.begin(), fExtOfInt.end(), n);
    if (iind != fExtOfInt.end())
       fExtOfInt.erase(iind, iind+1);
    fParameters[n].Fix();
@@ -306,7 +306,7 @@ void MnUserTransformation::Fix(unsigned int n) {
 void MnUserTransformation::Release(unsigned int n) {
    // release parameter n (external index)
    assert(n < fParameters.size());
-   std::vector<unsigned int>::const_iterator iind = std::find(fExtOfInt.begin(), fExtOfInt.end(), n);
+   auto iind = std::find(fExtOfInt.begin(), fExtOfInt.end(), n);
    if (iind == fExtOfInt.end() ) {
       fExtOfInt.push_back(n);
       std::sort(fExtOfInt.begin(), fExtOfInt.end());
@@ -425,7 +425,7 @@ auto MnUserTransformation::Error(const std::string & name) const -> double {
 
 auto MnUserTransformation::Index(const std::string & name) const -> unsigned int {
    // get index (external) corresponding to name
-   std::vector<MinuitParameter>::const_iterator ipar =
+   auto ipar =
    std::find_if(fParameters.begin(), fParameters.end(), MnParStr(name));
    assert(ipar != fParameters.end());
    //   return (ipar - fParameters.begin());
@@ -434,7 +434,7 @@ auto MnUserTransformation::Index(const std::string & name) const -> unsigned int
 
 auto MnUserTransformation::FindIndex(const std::string & name) const -> int {
    // find index (external) corresponding to name - return -1 if not found
-   std::vector<MinuitParameter>::const_iterator ipar =
+   auto ipar =
    std::find_if(fParameters.begin(), fParameters.end(), MnParStr(name));
    if (ipar == fParameters.end() ) return -1;
    return (*ipar).Number();

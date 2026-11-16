@@ -51,7 +51,7 @@ public:
       return fData[col+row*fNRow];
    }
 
-   auto Nrow() const -> unsigned int { return fNRow; }
+   [[nodiscard]] auto Nrow() const -> unsigned int { return fNRow; }
 private:
    unsigned int fNRow;
    std::vector<double> fData;

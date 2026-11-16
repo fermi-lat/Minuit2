@@ -22,7 +22,7 @@
 namespace ROOT {
 namespace Math {
 
-typedef std::map<std::string, ROOT::Math::GenAlgoOptions > OptionsMap;
+using OptionsMap = std::map<std::string, ROOT::Math::GenAlgoOptions >;
 
 namespace GenAlgoOptUtil {
 
@@ -37,11 +37,11 @@ namespace GenAlgoOptUtil {
       // store always name in upper case
       std::transform(algoname.begin(), algoname.end(), algoname.begin(), (int(*)(int)) toupper );
 
-      OptionsMap::iterator pos = gOpts.find(algoname);
+      auto pos = gOpts.find(algoname);
       if (pos !=  gOpts.end() ) {
          return &(pos->second);
       }
-      return 0;
+      return nullptr;
    }
 }
 
@@ -57,7 +57,7 @@ namespace GenAlgoOptUtil {
       std::string algoname(algo);
       OptionsMap & gOpts = GenAlgoOptUtil::gAlgoOptions;
       IOptions * opt = GenAlgoOptUtil::DoFindDefault(algoname, gOpts);
-      if (opt == 0) {
+      if (opt == nullptr) {
          // create new extra options for the given type
          std::pair<OptionsMap::iterator,bool> ret = gOpts.insert( OptionsMap::value_type(algoname, ROOT::Math::GenAlgoOptions()) );
          assert(ret.second);
@@ -68,7 +68,7 @@ namespace GenAlgoOptUtil {
 
    void GenAlgoOptions::PrintAllDefault(std::ostream & os) {
       const OptionsMap & gOpts = GenAlgoOptUtil::gAlgoOptions;
-      for (  OptionsMap::const_iterator pos = gOpts.begin();
+      for (  auto pos = gOpts.begin();
           pos != gOpts.end(); ++pos) {
             os << "Default specific options for algorithm "  << pos->first << " : " << std::endl;
             (pos->second).Print(os);
